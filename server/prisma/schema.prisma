@@ -1,0 +1,95 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  address   String?
+  createdAt DateTime @default(now())
+  email     String   @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  orders    Order[]
+  password  String
+  roles     String[]
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Product {
+  brandid     Brand?      @relation(fields: [brandidId], references: [id])
+  brandidId   String?
+  carts       Cart[]
+  categoryid  Category[]
+  createdAt   DateTime    @default(now())
+  id          String      @id @default(cuid())
+  image       String
+  orderItems  OrderItem[]
+  price       Float
+  productname String
+  sku         String?
+  updatedAt   DateTime    @updatedAt
+}
+
+model Brand {
+  brandname String    @unique
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  products  Product[]
+  updatedAt DateTime  @updatedAt
+}
+
+model Category {
+  categoryname String?
+  createdAt    DateTime  @default(now())
+  id           String    @id @default(cuid())
+  parentid     Int?
+  products     Product[]
+  updatedAt    DateTime  @updatedAt
+}
+
+model Cart {
+  createdAt    DateTime  @default(now())
+  id           String    @id @default(cuid())
+  productid    Product[]
+  productprice Float?
+  quantity     Int?
+  updatedAt    DateTime  @updatedAt
+  userid       Int?
+}
+
+model Attribute {
+  attributeType String?
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  name          String?
+  updatedAt     DateTime @updatedAt
+  value         String?
+}
+
+model Order {
+  createdAt  DateTime    @default(now())
+  id         String      @id @default(cuid())
+  orderItems OrderItem[]
+  totalprice Float?
+  updatedAt  DateTime    @updatedAt
+  userid     User?       @relation(fields: [useridId], references: [id])
+  useridId   String?
+}
+
+model OrderItem {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  orderid      Order?   @relation(fields: [orderidId], references: [id])
+  orderidId    String?
+  productid    Product? @relation(fields: [productidId], references: [id])
+  productidId  String?
+  productprice Float?
+  quantity     Int?
+  updatedAt    DateTime @updatedAt
+}
