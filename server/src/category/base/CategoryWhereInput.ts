@@ -15,7 +15,6 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 @InputType()
 class CategoryWhereInput {
@@ -43,14 +42,14 @@ class CategoryWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  parentid?: IntNullableFilter;
+  parentid?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

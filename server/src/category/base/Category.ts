@@ -11,13 +11,7 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  IsOptional,
-  IsDate,
-  IsInt,
-  ValidateNested,
-} from "class-validator";
+import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "../../product/base/Product";
 @ObjectType()
@@ -51,14 +45,14 @@ class Category {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsInt()
+  @IsString()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => String, {
     nullable: true,
   })
-  parentid!: number | null;
+  parentid!: string | null;
 
   @ApiProperty({
     required: false,

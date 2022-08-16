@@ -16,7 +16,7 @@ const CREATE_INPUT = {
   productprice: 42.42,
   quantity: 42,
   updatedAt: new Date(),
-  userid: 42,
+  userid: "exampleUserid",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
@@ -24,7 +24,7 @@ const CREATE_RESULT = {
   productprice: 42.42,
   quantity: 42,
   updatedAt: new Date(),
-  userid: 42,
+  userid: "exampleUserid",
 };
 const FIND_MANY_RESULT = [
   {
@@ -33,7 +33,7 @@ const FIND_MANY_RESULT = [
     productprice: 42.42,
     quantity: 42,
     updatedAt: new Date(),
-    userid: 42,
+    userid: "exampleUserid",
   },
 ];
 const FIND_ONE_RESULT = {
@@ -42,7 +42,7 @@ const FIND_ONE_RESULT = {
   productprice: 42.42,
   quantity: 42,
   updatedAt: new Date(),
-  userid: 42,
+  userid: "exampleUserid",
 };
 
 const service = {

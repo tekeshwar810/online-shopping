@@ -4,7 +4,7 @@ export type Category = {
   categoryname: string | null;
   createdAt: Date;
   id: string;
-  parentid: number | null;
+  parentid: string | null;
   products?: Array<Product>;
   updatedAt: Date;
 };

@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 @InputType()
 class CartWhereInput {
   @ApiProperty({
@@ -66,13 +67,13 @@ class CartWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  userid?: IntNullableFilter;
+  userid?: StringNullableFilter;
 }
 export { CartWhereInput };

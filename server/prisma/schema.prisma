@@ -48,7 +48,7 @@ model Category {
   categoryname String?
   createdAt    DateTime  @default(now())
   id           String    @id @default(cuid())
-  parentid     Int?
+  parentid     String?
   products     Product[]
   updatedAt    DateTime  @updatedAt
 }
@@ -60,7 +60,7 @@ model Cart {
   productprice Float?
   quantity     Int?
   updatedAt    DateTime  @updatedAt
-  userid       Int?
+  userid       String?
 }
 
 model Attribute {

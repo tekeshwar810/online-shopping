@@ -7,6 +7,7 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   NumberInput,
+  TextInput,
 } from "react-admin";
 
 import { ProductTitle } from "../product/ProductTitle";
@@ -25,7 +26,7 @@ export const CartEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <NumberInput label="productprice" source="productprice" />
         <NumberInput step={1} label="quantity" source="quantity" />
-        <NumberInput step={1} label="userid" source="userid" />
+        <TextInput label="userid" source="userid" />
       </SimpleForm>
     </Edit>
   );

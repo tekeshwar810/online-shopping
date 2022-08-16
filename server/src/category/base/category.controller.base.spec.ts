@@ -14,14 +14,14 @@ const CREATE_INPUT = {
   categoryname: "exampleCategoryname",
   createdAt: new Date(),
   id: "exampleId",
-  parentid: 42,
+  parentid: "exampleParentid",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   categoryname: "exampleCategoryname",
   createdAt: new Date(),
   id: "exampleId",
-  parentid: 42,
+  parentid: "exampleParentid",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -29,7 +29,7 @@ const FIND_MANY_RESULT = [
     categoryname: "exampleCategoryname",
     createdAt: new Date(),
     id: "exampleId",
-    parentid: 42,
+    parentid: "exampleParentid",
     updatedAt: new Date(),
   },
 ];
@@ -37,7 +37,7 @@ const FIND_ONE_RESULT = {
   categoryname: "exampleCategoryname",
   createdAt: new Date(),
   id: "exampleId",
-  parentid: 42,
+  parentid: "exampleParentid",
   updatedAt: new Date(),
 };
 

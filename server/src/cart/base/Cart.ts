@@ -80,13 +80,13 @@ class Cart {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsInt()
+  @IsString()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => String, {
     nullable: true,
   })
-  userid!: number | null;
+  userid!: string | null;
 }
 export { Cart };
