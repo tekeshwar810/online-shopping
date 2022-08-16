@@ -2,6 +2,6 @@ import { ProductUpdateManyWithoutCategoriesInput } from "./ProductUpdateManyWith
 
 export type CategoryUpdateInput = {
   categoryname?: string | null;
-  parentid?: number | null;
+  parentid?: string | null;
   products?: ProductUpdateManyWithoutCategoriesInput;
 };

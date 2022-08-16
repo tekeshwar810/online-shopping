@@ -7,5 +7,5 @@ export type Cart = {
   productprice: number | null;
   quantity: number | null;
   updatedAt: Date;
-  userid: number | null;
+  userid: string | null;
 };

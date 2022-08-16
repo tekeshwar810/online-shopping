@@ -2,6 +2,6 @@ import { ProductCreateNestedManyWithoutCategoriesInput } from "./ProductCreateNe
 
 export type CategoryCreateInput = {
   categoryname?: string | null;
-  parentid?: number | null;
+  parentid?: string | null;
   products?: ProductCreateNestedManyWithoutCategoriesInput;
 };
