@@ -30,9 +30,6 @@ import { Product } from "./Product";
 import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
 import { CartWhereUniqueInput } from "../../cart/base/CartWhereUniqueInput";
-import { CategoryFindManyArgs } from "../../category/base/CategoryFindManyArgs";
-import { Category } from "../../category/base/Category";
-import { CategoryWhereUniqueInput } from "../../category/base/CategoryWhereUniqueInput";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { OrderItemWhereUniqueInput } from "../../orderItem/base/OrderItemWhereUniqueInput";
@@ -71,6 +68,7 @@ export class ProductControllerBase {
           },
         },
 
+        categoryid: true,
         createdAt: true,
         id: true,
         image: true,
@@ -103,6 +101,7 @@ export class ProductControllerBase {
           },
         },
 
+        categoryid: true,
         createdAt: true,
         id: true,
         image: true,
@@ -136,6 +135,7 @@ export class ProductControllerBase {
           },
         },
 
+        categoryid: true,
         createdAt: true,
         id: true,
         image: true,
@@ -186,6 +186,7 @@ export class ProductControllerBase {
             },
           },
 
+          categoryid: true,
           createdAt: true,
           id: true,
           image: true,
@@ -227,6 +228,7 @@ export class ProductControllerBase {
             },
           },
 
+          categoryid: true,
           createdAt: true,
           id: true,
           image: true,
@@ -334,103 +336,6 @@ export class ProductControllerBase {
   ): Promise<void> {
     const data = {
       carts: {
-        disconnect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @nestAccessControl.UseRoles({
-    resource: "Category",
-    action: "read",
-    possession: "any",
-  })
-  @common.Get("/:id/categoryid")
-  @ApiNestedQuery(CategoryFindManyArgs)
-  async findManyCategoryid(
-    @common.Req() request: Request,
-    @common.Param() params: ProductWhereUniqueInput
-  ): Promise<Category[]> {
-    const query = plainToClass(CategoryFindManyArgs, request.query);
-    const results = await this.service.findCategoryid(params.id, {
-      ...query,
-      select: {
-        categoryname: true,
-        createdAt: true,
-        id: true,
-        parentid: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "update",
-    possession: "any",
-  })
-  @common.Post("/:id/categoryid")
-  async connectCategoryid(
-    @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CategoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      categoryid: {
-        connect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "update",
-    possession: "any",
-  })
-  @common.Patch("/:id/categoryid")
-  async updateCategoryid(
-    @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CategoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      categoryid: {
-        set: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "update",
-    possession: "any",
-  })
-  @common.Delete("/:id/categoryid")
-  async disconnectCategoryid(
-    @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CategoryWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      categoryid: {
         disconnect: body,
       },
     };

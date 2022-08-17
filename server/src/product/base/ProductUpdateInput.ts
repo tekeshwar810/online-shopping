@@ -15,12 +15,14 @@ import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
 import {
   ValidateNested,
   IsOptional,
+  IsJSON,
   IsString,
   IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { CartUpdateManyWithoutProductsInput } from "./CartUpdateManyWithoutProductsInput";
-import { CategoryUpdateManyWithoutProductsInput } from "./CategoryUpdateManyWithoutProductsInput";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { OrderItemUpdateManyWithoutProductsInput } from "./OrderItemUpdateManyWithoutProductsInput";
 @InputType()
 class ProductUpdateInput {
@@ -50,15 +52,13 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CategoryUpdateManyWithoutProductsInput,
   })
-  @ValidateNested()
-  @Type(() => CategoryUpdateManyWithoutProductsInput)
+  @IsJSON()
   @IsOptional()
-  @Field(() => CategoryUpdateManyWithoutProductsInput, {
+  @Field(() => GraphQLJSONObject, {
     nullable: true,
   })
-  categoryid?: CategoryUpdateManyWithoutProductsInput;
+  categoryid?: InputJsonValue;
 
   @ApiProperty({
     required: false,

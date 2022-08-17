@@ -14,7 +14,6 @@ import {
 
 import { BrandTitle } from "../brand/BrandTitle";
 import { CartTitle } from "../cart/CartTitle";
-import { CategoryTitle } from "../category/CategoryTitle";
 import { OrderItemTitle } from "../orderItem/OrderItemTitle";
 
 export const ProductEdit = (props: EditProps): React.ReactElement => {
@@ -32,14 +31,7 @@ export const ProductEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={CartTitle} />
         </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="categoryid"
-          reference="Category"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={CategoryTitle} />
-        </ReferenceArrayInput>
+        <div />
         <TextInput label="image" source="image" />
         <ReferenceArrayInput
           source="orderItems"

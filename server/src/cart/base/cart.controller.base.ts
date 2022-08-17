@@ -211,6 +211,7 @@ export class CartControllerBase {
           },
         },
 
+        categoryid: true,
         createdAt: true,
         id: true,
         image: true,

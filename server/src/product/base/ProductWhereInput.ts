@@ -15,7 +15,7 @@ import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { CartListRelationFilter } from "../../cart/base/CartListRelationFilter";
-import { CategoryListRelationFilter } from "../../category/base/CategoryListRelationFilter";
+import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { OrderItemListRelationFilter } from "../../orderItem/base/OrderItemListRelationFilter";
 import { FloatFilter } from "../../util/FloatFilter";
@@ -48,15 +48,14 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => CategoryListRelationFilter,
+    type: JsonFilter,
   })
-  @ValidateNested()
-  @Type(() => CategoryListRelationFilter)
+  @Type(() => JsonFilter)
   @IsOptional()
-  @Field(() => CategoryListRelationFilter, {
+  @Field(() => JsonFilter, {
     nullable: true,
   })
-  categoryid?: CategoryListRelationFilter;
+  categoryid?: JsonFilter;
 
   @ApiProperty({
     required: false,

@@ -25,7 +25,7 @@ model Product {
   brandid     Brand?      @relation(fields: [brandidId], references: [id])
   brandidId   String?
   carts       Cart[]
-  categoryid  Category[]
+  categoryid  Json
   createdAt   DateTime    @default(now())
   id          String      @id @default(cuid())
   image       String
@@ -46,11 +46,10 @@ model Brand {
 
 model Category {
   categoryname String?
-  createdAt    DateTime  @default(now())
-  id           String    @id @default(cuid())
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
   parentid     String?
-  products     Product[]
-  updatedAt    DateTime  @updatedAt
+  updatedAt    DateTime @updatedAt
 }
 
 model Cart {

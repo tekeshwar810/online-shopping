@@ -30,6 +30,7 @@ export const BrandShow = (props: ShowProps): React.ReactElement => {
             <ReferenceField label="brandid" source="brand.id" reference="Brand">
               <TextField source={BRAND_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="categoryid" source="categoryid" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="image" source="image" />
