@@ -1,6 +1,12 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
+import { NextFunction } from "express";
+import { PrismaClient } from "@prisma/client";
+import { Salt, parseSalt } from "src/auth/password.service";
+import { hash } from "bcrypt";
+import * as dotenv from "dotenv";
+
 // @ts-ignore
 // eslint-disable-next-line
 import { AppModule } from "./app.module";
@@ -14,6 +20,10 @@ import {
 
 const { PORT = 3000 } = process.env;
 
+async function globalMiddleware(req:Request,res:Response,next:NextFunction){
+  next()
+}
+
 async function main() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
@@ -23,7 +33,7 @@ async function main() {
       transform: true,
     })
   );
-
+  app.use(globalMiddleware)  
   const document = SwaggerModule.createDocument(app, swaggerDocumentOptions);
 
   /** check if there is Public decorator for each path (action) and its method (findMany / findOne) on each controller */
