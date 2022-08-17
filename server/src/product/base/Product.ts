@@ -15,13 +15,15 @@ import { Brand } from "../../brand/base/Brand";
 import {
   ValidateNested,
   IsOptional,
+  IsJSON,
   IsDate,
   IsString,
   IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Cart } from "../../cart/base/Cart";
-import { Category } from "../../category/base/Category";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 @ObjectType()
 class Product {
@@ -44,13 +46,11 @@ class Product {
   carts?: Array<Cart>;
 
   @ApiProperty({
-    required: false,
-    type: () => [Category],
+    required: true,
   })
-  @ValidateNested()
-  @Type(() => Category)
-  @IsOptional()
-  categoryid?: Array<Category>;
+  @IsJSON()
+  @Field(() => GraphQLJSONObject)
+  categoryid!: JsonValue;
 
   @ApiProperty({
     required: true,

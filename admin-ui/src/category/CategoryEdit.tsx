@@ -1,15 +1,5 @@
 import * as React from "react";
-
-import {
-  Edit,
-  SimpleForm,
-  EditProps,
-  TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
-} from "react-admin";
-
-import { ProductTitle } from "../product/ProductTitle";
+import { Edit, SimpleForm, EditProps, TextInput } from "react-admin";
 
 export const CategoryEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -17,14 +7,6 @@ export const CategoryEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="categoryname" source="categoryname" />
         <TextInput label="parentid" source="parentid" />
-        <ReferenceArrayInput
-          source="products"
-          reference="Product"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductTitle} />
-        </ReferenceArrayInput>
       </SimpleForm>
     </Edit>
   );

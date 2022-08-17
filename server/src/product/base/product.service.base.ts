@@ -10,14 +10,7 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "nestjs-prisma";
-import {
-  Prisma,
-  Product,
-  Cart,
-  Category,
-  OrderItem,
-  Brand,
-} from "@prisma/client";
+import { Prisma, Product, Cart, OrderItem, Brand } from "@prisma/client";
 
 export class ProductServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -63,17 +56,6 @@ export class ProductServiceBase {
         where: { id: parentId },
       })
       .carts(args);
-  }
-
-  async findCategoryid(
-    parentId: string,
-    args: Prisma.CategoryFindManyArgs
-  ): Promise<Category[]> {
-    return this.prisma.product
-      .findUnique({
-        where: { id: parentId },
-      })
-      .categoryid(args);
   }
 
   async findOrderItems(

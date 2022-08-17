@@ -25,8 +25,6 @@ import { DeleteCategoryArgs } from "./DeleteCategoryArgs";
 import { CategoryFindManyArgs } from "./CategoryFindManyArgs";
 import { CategoryFindUniqueArgs } from "./CategoryFindUniqueArgs";
 import { Category } from "./Category";
-import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
-import { Product } from "../../product/base/Product";
 import { CategoryService } from "../category.service";
 
 @graphql.Resolver(() => Category)
@@ -146,25 +144,5 @@ export class CategoryResolverBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Product])
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "read",
-    possession: "any",
-  })
-  async products(
-    @graphql.Parent() parent: Category,
-    @graphql.Args() args: ProductFindManyArgs
-  ): Promise<Product[]> {
-    const results = await this.service.findProducts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
   }
 }

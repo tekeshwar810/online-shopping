@@ -201,6 +201,7 @@ export class BrandControllerBase {
           },
         },
 
+        categoryid: true,
         createdAt: true,
         id: true,
         image: true,

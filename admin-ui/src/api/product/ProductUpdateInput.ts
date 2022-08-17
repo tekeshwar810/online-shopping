@@ -1,12 +1,12 @@
 import { BrandWhereUniqueInput } from "../brand/BrandWhereUniqueInput";
 import { CartUpdateManyWithoutProductsInput } from "./CartUpdateManyWithoutProductsInput";
-import { CategoryUpdateManyWithoutProductsInput } from "./CategoryUpdateManyWithoutProductsInput";
+import { InputJsonValue } from "../../types";
 import { OrderItemUpdateManyWithoutProductsInput } from "./OrderItemUpdateManyWithoutProductsInput";
 
 export type ProductUpdateInput = {
   brandid?: BrandWhereUniqueInput | null;
   carts?: CartUpdateManyWithoutProductsInput;
-  categoryid?: CategoryUpdateManyWithoutProductsInput;
+  categoryid?: InputJsonValue;
   image?: string;
   orderItems?: OrderItemUpdateManyWithoutProductsInput;
   price?: number;

@@ -1,15 +1,5 @@
 import * as React from "react";
-
-import {
-  Create,
-  SimpleForm,
-  CreateProps,
-  TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
-} from "react-admin";
-
-import { ProductTitle } from "../product/ProductTitle";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const CategoryCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -17,14 +7,6 @@ export const CategoryCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="categoryname" source="categoryname" />
         <TextInput label="parentid" source="parentid" />
-        <ReferenceArrayInput
-          source="products"
-          reference="Product"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ProductTitle} />
-        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

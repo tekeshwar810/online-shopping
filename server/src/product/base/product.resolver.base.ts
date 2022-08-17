@@ -27,8 +27,6 @@ import { ProductFindUniqueArgs } from "./ProductFindUniqueArgs";
 import { Product } from "./Product";
 import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
-import { CategoryFindManyArgs } from "../../category/base/CategoryFindManyArgs";
-import { Category } from "../../category/base/Category";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { Brand } from "../../brand/base/Brand";
@@ -181,26 +179,6 @@ export class ProductResolverBase {
     @graphql.Args() args: CartFindManyArgs
   ): Promise<Cart[]> {
     const results = await this.service.findCarts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Category])
-  @nestAccessControl.UseRoles({
-    resource: "Category",
-    action: "read",
-    possession: "any",
-  })
-  async categoryid(
-    @graphql.Parent() parent: Product,
-    @graphql.Args() args: CategoryFindManyArgs
-  ): Promise<Category[]> {
-    const results = await this.service.findCategoryid(parent.id, args);
 
     if (!results) {
       return [];
