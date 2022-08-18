@@ -8,6 +8,7 @@ import {
   DateField,
 } from "react-admin";
 import Pagination from "../Components/Pagination";
+import { ATTRIBUTE_TITLE_FIELD } from "../attribute/AttributeTitle";
 import { BRAND_TITLE_FIELD } from "../brand/BrandTitle";
 
 export const ProductList = (props: ListProps): React.ReactElement => {
@@ -20,6 +21,13 @@ export const ProductList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
+        <ReferenceField
+          label="attributeid"
+          source="attribute.id"
+          reference="Attribute"
+        >
+          <TextField source={ATTRIBUTE_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField label="brandid" source="brand.id" reference="Brand">
           <TextField source={BRAND_TITLE_FIELD} />
         </ReferenceField>
