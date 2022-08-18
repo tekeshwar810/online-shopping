@@ -22,18 +22,20 @@ model User {
 }
 
 model Product {
-  brandid     Brand?      @relation(fields: [brandidId], references: [id])
-  brandidId   String?
-  carts       Cart[]
-  categoryid  Json
-  createdAt   DateTime    @default(now())
-  id          String      @id @default(cuid())
-  image       String
-  orderItems  OrderItem[]
-  price       Float
-  productname String
-  sku         String?
-  updatedAt   DateTime    @updatedAt
+  attributeId   Attribute?  @relation(fields: [attributeIdId], references: [id])
+  attributeIdId String?
+  brandid       Brand?      @relation(fields: [brandidId], references: [id])
+  brandidId     String?
+  carts         Cart[]
+  categoryid    Json
+  createdAt     DateTime    @default(now())
+  id            String      @id @default(cuid())
+  image         String
+  orderItems    OrderItem[]
+  price         Float
+  productname   String
+  sku           String?
+  updatedAt     DateTime    @updatedAt
 }
 
 model Brand {
@@ -64,10 +66,11 @@ model Cart {
 
 model Attribute {
   attributeType String?
-  createdAt     DateTime @default(now())
-  id            String   @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
   name          String?
-  updatedAt     DateTime @updatedAt
+  products      Product[]
+  updatedAt     DateTime  @updatedAt
   value         String?
 }
 

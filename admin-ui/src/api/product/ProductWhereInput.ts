@@ -1,3 +1,4 @@
+import { AttributeWhereUniqueInput } from "../attribute/AttributeWhereUniqueInput";
 import { BrandWhereUniqueInput } from "../brand/BrandWhereUniqueInput";
 import { CartListRelationFilter } from "../cart/CartListRelationFilter";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -7,6 +8,7 @@ import { FloatFilter } from "../../util/FloatFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 export type ProductWhereInput = {
+  attributeId?: AttributeWhereUniqueInput;
   brandid?: BrandWhereUniqueInput;
   carts?: CartListRelationFilter;
   categoryid?: JsonFilter;

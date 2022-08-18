@@ -29,6 +29,7 @@ import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
 import { Cart } from "../../cart/base/Cart";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
+import { Attribute } from "../../attribute/base/Attribute";
 import { Brand } from "../../brand/base/Brand";
 import { ProductService } from "../product.service";
 
@@ -104,6 +105,12 @@ export class ProductResolverBase {
       data: {
         ...args.data,
 
+        attributeId: args.data.attributeId
+          ? {
+              connect: args.data.attributeId,
+            }
+          : undefined,
+
         brandid: args.data.brandid
           ? {
               connect: args.data.brandid,
@@ -128,6 +135,12 @@ export class ProductResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          attributeId: args.data.attributeId
+            ? {
+                connect: args.data.attributeId,
+              }
+            : undefined,
 
           brandid: args.data.brandid
             ? {
@@ -205,6 +218,24 @@ export class ProductResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Attribute, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Attribute",
+    action: "read",
+    possession: "any",
+  })
+  async attributeId(
+    @graphql.Parent() parent: Product
+  ): Promise<Attribute | null> {
+    const result = await this.service.getAttributeId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
