@@ -7,6 +7,7 @@ type Attribute {
   createdAt: DateTime!
   id: String!
   name: String
+  products(orderBy: [ProductOrderByInput!], skip: Float, take: Float, where: ProductWhereInput): [Product!]!
   updatedAt: DateTime!
   value: String
 }
@@ -14,6 +15,7 @@ type Attribute {
 input AttributeCreateInput {
   attributeType: String
   name: String
+  products: ProductCreateNestedManyWithoutAttributesInput
   value: String
 }
 
@@ -29,6 +31,7 @@ input AttributeOrderByInput {
 input AttributeUpdateInput {
   attributeType: String
   name: String
+  products: ProductUpdateManyWithoutAttributesInput
   value: String
 }
 
@@ -36,6 +39,7 @@ input AttributeWhereInput {
   attributeType: StringNullableFilter
   id: StringFilter
   name: StringNullableFilter
+  products: ProductListRelationFilter
   value: StringNullableFilter
 }
 
@@ -389,6 +393,7 @@ input OrderWhereUniqueInput {
 }
 
 type Product {
+  attributeid: Attribute
   brandid: Brand
   carts(orderBy: [CartOrderByInput!], skip: Float, take: Float, where: CartWhereInput): [Cart!]!
   categoryid: JSONObject!
@@ -403,14 +408,19 @@ type Product {
 }
 
 input ProductCreateInput {
+  attributeid: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
   carts: CartCreateNestedManyWithoutProductsInput
-  categoryid: [String!]!
+  categoryid: JSONObject!
   image: String!
   orderItems: OrderItemCreateNestedManyWithoutProductsInput
   price: Float!
   productname: String!
   sku: String
+}
+
+input ProductCreateNestedManyWithoutAttributesInput {
+  connect: [ProductWhereUniqueInput!]
 }
 
 input ProductCreateNestedManyWithoutBrandsInput {
@@ -428,6 +438,7 @@ input ProductListRelationFilter {
 }
 
 input ProductOrderByInput {
+  attributeidId: SortOrder
   brandidId: SortOrder
   categoryid: SortOrder
   createdAt: SortOrder
@@ -440,6 +451,7 @@ input ProductOrderByInput {
 }
 
 input ProductUpdateInput {
+  attributeid: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
   carts: CartUpdateManyWithoutProductsInput
   categoryid: JSONObject
@@ -448,6 +460,12 @@ input ProductUpdateInput {
   price: Float
   productname: String
   sku: String
+}
+
+input ProductUpdateManyWithoutAttributesInput {
+  connect: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
 }
 
 input ProductUpdateManyWithoutBrandsInput {
@@ -463,6 +481,7 @@ input ProductUpdateManyWithoutCartsInput {
 }
 
 input ProductWhereInput {
+  attributeid: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
   carts: CartListRelationFilter
   categoryid: JsonFilter

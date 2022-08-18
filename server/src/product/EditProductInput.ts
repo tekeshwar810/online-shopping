@@ -12,7 +12,7 @@ import { Type } from "class-transformer";
 import { BrandWhereUniqueInput } from "../brand/base/BrandWhereUniqueInput";
 
 @InputType()
-class AddProductInput {
+class EditProductInput {
     @ApiProperty({
         required: true,
         type: String,
@@ -32,11 +32,10 @@ class AddProductInput {
     categoryid!: Array<string>;
 
     @ApiProperty({
-        required: true,
+        required: false,
         type: 'string',
         format: 'binary',
     })
-
     @Field(() => String)
     image!: string;
 
@@ -57,7 +56,7 @@ class AddProductInput {
     productname!: string;
 
     @ApiProperty({
-        required: true,
+        required: false,
         type: String,
     })
     @IsString()
@@ -75,4 +74,4 @@ class AddProductInput {
     @Field(() => String)
     attributeid!: string;
 }
-export { AddProductInput };
+export { EditProductInput };

@@ -9,6 +9,7 @@ export class ProductService extends ProductServiceBase {
   }
 
   async addProduct(data:any,imgPath:string) {
+    console.log(data.attributeid)
     let category = data.categoryid
     let categoryid = category.split(',')
     console.log(data)
@@ -19,12 +20,40 @@ export class ProductService extends ProductServiceBase {
       sku:data.sku,
       brandidId:data.brandid,
       categoryid:categoryid,
-      image:imgPath
+      image:imgPath,
+      attributeidId:data.attributeid
      },
      select:{
-      productname:true
-     }
+      productname:true,
+     },
+     
     })
     return {success:true,msg:'product add successfully'}
+  }
+
+  async updateProduct(data:any,image:any,condition:any){
+    let imgPath;
+    if(image != undefined){
+      imgPath = image[0].path
+    }
+    let category = data.categoryid
+    let categoryid = category.split(',')
+    const updateProduct = await this.prisma.product.update({
+      where:condition,
+      data:{
+        productname:data.productname,
+        price: parseFloat(data.price),
+        sku:data.sku,
+        brandidId:data.brandid,
+        categoryid:categoryid,
+        image:imgPath,
+        attributeidId:data.attributeid
+      }
+    })
+    if(updateProduct){
+      return {success:true,msg:'product update successfully'}
+    }else{
+      return {success:false,msg:'product not update'}
+    }
   }
 }

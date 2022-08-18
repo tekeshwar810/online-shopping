@@ -15,6 +15,8 @@ import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { imageFileFilter } from "src/util/FileValidator";
 import { Express,Request } from 'express'
 import { AddProductInput } from "./AddProductInput";
+import { EditProductInput } from "./EditProductInput";
+import { ProductWhereUniqueInput } from "./base/ProductWhereUniqueInput";
 
 
 @swagger.ApiTags("products")
@@ -45,16 +47,39 @@ export class ProductController extends ProductControllerBase {
   @swagger.ApiOkResponse({ type: Product })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
-  async addProduct(@Req() req:any,@common.Body() data: AddProductInput,@UploadedFiles() files:{image?: Express.Multer.File[]}):Promise<Object>{
-    console.log('file',files.image,'data',data);
+  async addProduct(@Req() req:any,
+    @common.Body() data: AddProductInput,
+    @UploadedFiles() files:{image?: Express.Multer.File[]}
+    ):Promise<Object>{
     if(req.fileValidationError){
       throw new BadRequestException('invaild file, only img file upload...')
     }else{
       const image:any = files.image
       const imgPath = image[0].path
-    
-     const productResponse =  await this.service.addProduct(data,imgPath)
+      const productResponse =  await this.service.addProduct(data,imgPath)
      return productResponse;
     }
+  }
+
+  @common.Put("/editProduct/:id")
+  @ApiConsumes('multipart/form-data')
+  @UseGuards(AuthGuard('jwt'),new RoleGuard('admin'))
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "update",
+    possession: "own",
+  })
+  @UseInterceptors(FileFieldsInterceptor([
+    {name:'image', maxCount: 1},
+  ],
+  {fileFilter:imageFileFilter}  
+  ))
+  @swagger.ApiOkResponse({ type: Product })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async editProduct(@Req() req:any,@common.Param() params: ProductWhereUniqueInput,@common.Body() data: EditProductInput,@UploadedFiles() files:{image?: Express.Multer.File[]}):Promise<Object>{
+    const image:any = files.image
+    const response = await this.service.updateProduct(data,image,params)
+    return response
   }
 }

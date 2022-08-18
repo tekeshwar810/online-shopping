@@ -110,6 +110,7 @@ export class ProductControllerBase {
         attributeid: {
           select: {
             id: true,
+            name:true
           },
         },
 

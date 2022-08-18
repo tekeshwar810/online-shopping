@@ -11,6 +11,20 @@ export class CategoryService extends CategoryServiceBase {
   }
 
   async getCategoryList() {
+  let result =  await this.prisma.attribute.findMany({
+      // select:{
+      //   name:true,
+      //   products:{
+      //     select:{
+      //       productname:true
+      //     }
+      //   }
+      // }
+      // include:{
+      //   products:true
+      // }
+    })
+    // console.log('attribute',result,result[0].products)
     let categoryAry: { id: string; category_name: string | null; child_categories: { id: string; categoryname: string | null; }[]; }[] = []
     const category = await this.prisma.category.findMany({
       where: {

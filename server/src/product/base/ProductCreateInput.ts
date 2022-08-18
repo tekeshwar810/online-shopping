@@ -116,5 +116,7 @@ class ProductCreateInput {
     nullable: true,
   })
   sku?: string | null;
+
+  
 }
 export { ProductCreateInput };

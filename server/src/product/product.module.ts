@@ -15,7 +15,7 @@ import { diskStorage } from 'multer';
       },
     }),
     limits: {
-      fileSize:10000
+      fileSize:1000000
     }
   })],
   controllers: [ProductController],
