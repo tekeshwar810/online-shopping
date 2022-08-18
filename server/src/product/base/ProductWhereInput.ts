@@ -11,9 +11,10 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
+import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
 import { CartListRelationFilter } from "../../cart/base/CartListRelationFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
@@ -22,6 +23,18 @@ import { FloatFilter } from "../../util/FloatFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 @InputType()
 class ProductWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AttributeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AttributeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AttributeWhereUniqueInput, {
+    nullable: true,
+  })
+  attributeid?: AttributeWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: () => BrandWhereUniqueInput,

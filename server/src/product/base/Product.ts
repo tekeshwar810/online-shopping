@@ -11,7 +11,7 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Brand } from "../../brand/base/Brand";
+import { Attribute } from "../../attribute/base/Attribute";
 import {
   ValidateNested,
   IsOptional,
@@ -21,12 +21,22 @@ import {
   IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Brand } from "../../brand/base/Brand";
 import { Cart } from "../../cart/base/Cart";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 @ObjectType()
 class Product {
+  @ApiProperty({
+    required: false,
+    type: () => Attribute,
+  })
+  @ValidateNested()
+  @Type(() => Attribute)
+  @IsOptional()
+  attributeid?: Attribute | null;
+
   @ApiProperty({
     required: false,
     type: () => Brand,

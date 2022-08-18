@@ -205,6 +205,12 @@ export class CartControllerBase {
     const results = await this.service.findProductid(params.id, {
       ...query,
       select: {
+        attributeid: {
+          select: {
+            id: true,
+          },
+        },
+
         brandid: {
           select: {
             id: true,

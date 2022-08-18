@@ -13,12 +13,20 @@ import {
 
 import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
 import { PRODUCT_TITLE_FIELD } from "./ProductTitle";
+import { ATTRIBUTE_TITLE_FIELD } from "../attribute/AttributeTitle";
 import { BRAND_TITLE_FIELD } from "../brand/BrandTitle";
 
 export const ProductShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
+        <ReferenceField
+          label="attributeid"
+          source="attribute.id"
+          reference="Attribute"
+        >
+          <TextField source={ATTRIBUTE_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField label="brandid" source="brand.id" reference="Brand">
           <TextField source={BRAND_TITLE_FIELD} />
         </ReferenceField>

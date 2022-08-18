@@ -11,6 +11,7 @@ import {
   ReferenceField,
 } from "react-admin";
 
+import { ATTRIBUTE_TITLE_FIELD } from "../attribute/AttributeTitle";
 import { BRAND_TITLE_FIELD } from "./BrandTitle";
 
 export const BrandShow = (props: ShowProps): React.ReactElement => {
@@ -27,6 +28,13 @@ export const BrandShow = (props: ShowProps): React.ReactElement => {
           label="products"
         >
           <Datagrid rowClick="show">
+            <ReferenceField
+              label="attributeid"
+              source="attribute.id"
+              reference="Attribute"
+            >
+              <TextField source={ATTRIBUTE_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField label="brandid" source="brand.id" reference="Brand">
               <TextField source={BRAND_TITLE_FIELD} />
             </ReferenceField>

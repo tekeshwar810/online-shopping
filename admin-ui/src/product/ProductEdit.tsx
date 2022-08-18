@@ -12,6 +12,7 @@ import {
   NumberInput,
 } from "react-admin";
 
+import { AttributeTitle } from "../attribute/AttributeTitle";
 import { BrandTitle } from "../brand/BrandTitle";
 import { CartTitle } from "../cart/CartTitle";
 import { OrderItemTitle } from "../orderItem/OrderItemTitle";
@@ -20,6 +21,13 @@ export const ProductEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <ReferenceInput
+          source="attribute.id"
+          reference="Attribute"
+          label="attributeid"
+        >
+          <SelectInput optionText={AttributeTitle} />
+        </ReferenceInput>
         <ReferenceInput source="brand.id" reference="Brand" label="brandid">
           <SelectInput optionText={BrandTitle} />
         </ReferenceInput>

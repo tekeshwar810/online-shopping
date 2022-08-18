@@ -25,6 +25,8 @@ import { DeleteAttributeArgs } from "./DeleteAttributeArgs";
 import { AttributeFindManyArgs } from "./AttributeFindManyArgs";
 import { AttributeFindUniqueArgs } from "./AttributeFindUniqueArgs";
 import { Attribute } from "./Attribute";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
 import { AttributeService } from "../attribute.service";
 
 @graphql.Resolver(() => Attribute)
@@ -144,5 +146,25 @@ export class AttributeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Product])
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async products(
+    @graphql.Parent() parent: Attribute,
+    @graphql.Args() args: ProductFindManyArgs
+  ): Promise<Product[]> {
+    const results = await this.service.findProducts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

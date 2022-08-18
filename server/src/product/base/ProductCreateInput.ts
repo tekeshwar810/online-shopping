@@ -11,7 +11,7 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
+import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUniqueInput";
 import {
   ValidateNested,
   IsOptional,
@@ -20,12 +20,25 @@ import {
   IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
 import { CartCreateNestedManyWithoutProductsInput } from "./CartCreateNestedManyWithoutProductsInput";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { OrderItemCreateNestedManyWithoutProductsInput } from "./OrderItemCreateNestedManyWithoutProductsInput";
 @InputType()
 class ProductCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AttributeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AttributeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AttributeWhereUniqueInput, {
+    nullable: true,
+  })
+  attributeid?: AttributeWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: () => BrandWhereUniqueInput,
@@ -50,22 +63,12 @@ class ProductCreateInput {
   })
   carts?: CartCreateNestedManyWithoutProductsInput;
 
-  // @ApiProperty({
-  //   required: true,
-  // })
-  // @IsJSON()
-  // @Field(() => GraphQLJSONObject)
-  // categoryid!: InputJsonValue;
- 
   @ApiProperty({
     required: true,
-    type: [String],
   })
-  @IsString({
-    each: true,
-  })
-  @Field(() => [String])
-  categoryid!: Array<string>;
+  @IsJSON()
+  @Field(() => GraphQLJSONObject)
+  categoryid!: InputJsonValue;
 
   @ApiProperty({
     required: true,
