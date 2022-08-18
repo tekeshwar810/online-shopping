@@ -55,6 +55,12 @@ export class ProductControllerBase {
       data: {
         ...data,
 
+        attributeId: data.attributeId
+          ? {
+              connect: data.attributeId,
+            }
+          : undefined,
+
         brandid: data.brandid
           ? {
               connect: data.brandid,
@@ -62,6 +68,12 @@ export class ProductControllerBase {
           : undefined,
       },
       select: {
+        attributeId: {
+          select: {
+            id: true,
+          },
+        },
+
         brandid: {
           select: {
             id: true,
@@ -95,6 +107,12 @@ export class ProductControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        attributeId: {
+          select: {
+            id: true,
+          },
+        },
+
         brandid: {
           select: {
             id: true,
@@ -129,6 +147,12 @@ export class ProductControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        attributeId: {
+          select: {
+            id: true,
+          },
+        },
+
         brandid: {
           select: {
             id: true,
@@ -173,6 +197,12 @@ export class ProductControllerBase {
         data: {
           ...data,
 
+          attributeId: data.attributeId
+            ? {
+                connect: data.attributeId,
+              }
+            : undefined,
+
           brandid: data.brandid
             ? {
                 connect: data.brandid,
@@ -180,6 +210,12 @@ export class ProductControllerBase {
             : undefined,
         },
         select: {
+          attributeId: {
+            select: {
+              id: true,
+            },
+          },
+
           brandid: {
             select: {
               id: true,
@@ -222,6 +258,12 @@ export class ProductControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          attributeId: {
+            select: {
+              id: true,
+            },
+          },
+
           brandid: {
             select: {
               id: true,

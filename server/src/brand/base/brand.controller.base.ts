@@ -195,6 +195,12 @@ export class BrandControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
+        attributeId: {
+          select: {
+            id: true,
+          },
+        },
+
         brandid: {
           select: {
             id: true,

@@ -27,6 +27,9 @@ import { AttributeWhereUniqueInput } from "./AttributeWhereUniqueInput";
 import { AttributeFindManyArgs } from "./AttributeFindManyArgs";
 import { AttributeUpdateInput } from "./AttributeUpdateInput";
 import { Attribute } from "./Attribute";
+import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
+import { Product } from "../../product/base/Product";
+import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class AttributeControllerBase {
@@ -184,5 +187,117 @@ export class AttributeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/products")
+  @ApiNestedQuery(ProductFindManyArgs)
+  async findManyProducts(
+    @common.Req() request: Request,
+    @common.Param() params: AttributeWhereUniqueInput
+  ): Promise<Product[]> {
+    const query = plainToClass(ProductFindManyArgs, request.query);
+    const results = await this.service.findProducts(params.id, {
+      ...query,
+      select: {
+        attributeId: {
+          select: {
+            id: true,
+          },
+        },
+
+        brandid: {
+          select: {
+            id: true,
+          },
+        },
+
+        categoryid: true,
+        createdAt: true,
+        id: true,
+        image: true,
+        price: true,
+        productname: true,
+        sku: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Attribute",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/products")
+  async connectProducts(
+    @common.Param() params: AttributeWhereUniqueInput,
+    @common.Body() body: ProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      products: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Attribute",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/products")
+  async updateProducts(
+    @common.Param() params: AttributeWhereUniqueInput,
+    @common.Body() body: ProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      products: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Attribute",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/products")
+  async disconnectProducts(
+    @common.Param() params: AttributeWhereUniqueInput,
+    @common.Body() body: ProductWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      products: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }
