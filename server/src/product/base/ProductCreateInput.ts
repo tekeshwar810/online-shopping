@@ -50,12 +50,22 @@ class ProductCreateInput {
   })
   carts?: CartCreateNestedManyWithoutProductsInput;
 
+  // @ApiProperty({
+  //   required: true,
+  // })
+  // @IsJSON()
+  // @Field(() => GraphQLJSONObject)
+  // categoryid!: InputJsonValue;
+ 
   @ApiProperty({
     required: true,
+    type: [String],
   })
-  @IsJSON()
-  @Field(() => GraphQLJSONObject)
-  categoryid!: InputJsonValue;
+  @IsString({
+    each: true,
+  })
+  @Field(() => [String])
+  categoryid!: Array<string>;
 
   @ApiProperty({
     required: true,
