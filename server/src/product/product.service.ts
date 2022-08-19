@@ -8,6 +8,39 @@ export class ProductService extends ProductServiceBase {
     super(prisma);
   }
 
+  async getProduct(){
+   const product_list = await this.prisma.product.findMany({
+      select: {
+        id: true,
+        categoryid: true,
+        createdAt: true,
+        image: true,
+        price: true,
+        productname: true,
+        sku: true,
+        updatedAt: true,
+        attributeid: {
+          select: {
+            id: true,
+            name:true,
+            attributeType:true,
+            value:true
+          },
+        },
+        brandid: {
+          select: {
+            id: true,
+            brandname: true
+          },
+        },
+      },
+      orderBy: {
+        id: 'desc'
+      }
+    })
+    return product_list;
+  }
+
   async addProduct(data:any,imgPath:string) {
     console.log(data.attributeid)
     let category = data.categoryid
@@ -56,4 +89,50 @@ export class ProductService extends ProductServiceBase {
       return {success:false,msg:'product not update'}
     }
   }
+
+  async filterProducts(data:any){
+    let fillterData = []
+    const categoryid = data.categoryid
+    const brandidId = data.brandidId
+
+    if(categoryid != undefined && categoryid.trim() != ""){
+      let condition = {
+        categoryid:{
+          array_contains: [categoryid]
+        }
+      }
+      fillterData.push(condition)
+    }
+
+    if(brandidId != undefined && brandidId.trim() != ""){
+      fillterData.push({ brandidId:brandidId })
+    }
+
+    if(data.min != undefined && data.max != undefined){
+      fillterData.push({
+        price:{ lte: parseFloat(data.max) , gte:parseFloat(data.min) }
+      })
+    }
+
+    const fillterDataResponse = await this.prisma.product.findMany({
+     where:{
+      OR:fillterData
+     },
+      select:{
+        productname:true,
+        price:true,
+        image:true,
+        sku:true,
+        categoryid:true,
+          brandid: {
+            select: {
+              id: true,
+              brandname: true
+            },
+          },
+      },
+    })
+    return fillterDataResponse
+  }
+ 
 }

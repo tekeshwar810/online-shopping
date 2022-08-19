@@ -16,6 +16,7 @@ import { imageFileFilter } from "src/util/FileValidator";
 import { Express,Request } from 'express'
 import { AddProductInput } from "./AddProductInput";
 import { EditProductInput } from "./EditProductInput";
+import { FilterProductInput } from "./FilterProductInput"
 import { ProductWhereUniqueInput } from "./base/ProductWhereUniqueInput";
 
 
@@ -31,6 +32,20 @@ export class ProductController extends ProductControllerBase {
   }
 
   // @common.UseInterceptors(AclValidateRequestInterceptor)
+  @common.Get("/getAllProducts")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "own",
+  })
+  @swagger.ApiOkResponse({ type: Product })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async getAllProduct():Promise<Object>{
+    const productList = await this.service.getProduct()
+    return productList;
+  }
+
   @common.Post("/addProduct")
   @ApiConsumes('multipart/form-data')
   @UseGuards(AuthGuard('jwt'),new RoleGuard('admin'))
@@ -81,5 +96,19 @@ export class ProductController extends ProductControllerBase {
     const image:any = files.image
     const response = await this.service.updateProduct(data,image,params)
     return response
+  }
+
+  @common.Post("/filterProduct")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "own",
+  })
+  @swagger.ApiOkResponse({ type: Product })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async filterProduct(@common.Body() data: FilterProductInput):Promise<Object>{
+    const productList =  await this.service.filterProducts(data)
+    return productList;
   }
 }

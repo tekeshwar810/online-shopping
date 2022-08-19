@@ -5,6 +5,7 @@ datasource postgres {
 
 generator client {
   provider = "prisma-client-js"
+   previewFeatures = ["filterJson"]
 }
 
 model User {
@@ -27,7 +28,7 @@ model Product {
   brandid       Brand?      @relation(fields: [brandidId], references: [id])
   brandidId     String?
   carts         Cart[]
-  categoryid    Json
+  categoryid    Json?
   createdAt     DateTime    @default(now())
   id            String      @id @default(cuid())
   image         String

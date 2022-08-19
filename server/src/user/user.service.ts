@@ -11,4 +11,23 @@ export class UserService extends UserServiceBase {
   ) {
     super(prisma, passwordService);
   }
+
+  async getAllUsers(){
+   const userList =  await this.prisma.user.findMany({
+      where:{
+        roles: {
+          hasEvery:'shopper'
+        }
+      },
+      select:{
+        username:true,
+        email:true,
+        firstName:true,
+        lastName:true,
+        address:true,
+        roles:true
+      }
+    })  
+    return userList;
+  }
 }
