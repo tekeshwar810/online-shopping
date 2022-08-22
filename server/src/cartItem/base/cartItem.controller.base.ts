@@ -27,9 +27,6 @@ import { CartItemWhereUniqueInput } from "./CartItemWhereUniqueInput";
 import { CartItemFindManyArgs } from "./CartItemFindManyArgs";
 import { CartItemUpdateInput } from "./CartItemUpdateInput";
 import { CartItem } from "./CartItem";
-import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
-import { Product } from "../../product/base/Product";
-import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class CartItemControllerBase {
@@ -57,6 +54,12 @@ export class CartItemControllerBase {
               connect: data.cartid,
             }
           : undefined,
+
+        productid: data.productid
+          ? {
+              connect: data.productid,
+            }
+          : undefined,
       },
       select: {
         cartid: {
@@ -67,6 +70,13 @@ export class CartItemControllerBase {
 
         createdAt: true,
         id: true,
+
+        productid: {
+          select: {
+            id: true,
+          },
+        },
+
         productprice: true,
         quantity: true,
         updatedAt: true,
@@ -98,6 +108,13 @@ export class CartItemControllerBase {
 
         createdAt: true,
         id: true,
+
+        productid: {
+          select: {
+            id: true,
+          },
+        },
+
         productprice: true,
         quantity: true,
         updatedAt: true,
@@ -130,6 +147,13 @@ export class CartItemControllerBase {
 
         createdAt: true,
         id: true,
+
+        productid: {
+          select: {
+            id: true,
+          },
+        },
+
         productprice: true,
         quantity: true,
         updatedAt: true,
@@ -169,6 +193,12 @@ export class CartItemControllerBase {
                 connect: data.cartid,
               }
             : undefined,
+
+          productid: data.productid
+            ? {
+                connect: data.productid,
+              }
+            : undefined,
         },
         select: {
           cartid: {
@@ -179,6 +209,13 @@ export class CartItemControllerBase {
 
           createdAt: true,
           id: true,
+
+          productid: {
+            select: {
+              id: true,
+            },
+          },
+
           productprice: true,
           quantity: true,
           updatedAt: true,
@@ -219,6 +256,13 @@ export class CartItemControllerBase {
 
           createdAt: true,
           id: true,
+
+          productid: {
+            select: {
+              id: true,
+            },
+          },
+
           productprice: true,
           quantity: true,
           updatedAt: true,
@@ -233,117 +277,5 @@ export class CartItemControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "read",
-    possession: "any",
-  })
-  @common.Get("/:id/productid")
-  @ApiNestedQuery(ProductFindManyArgs)
-  async findManyProductid(
-    @common.Req() request: Request,
-    @common.Param() params: CartItemWhereUniqueInput
-  ): Promise<Product[]> {
-    const query = plainToClass(ProductFindManyArgs, request.query);
-    const results = await this.service.findProductid(params.id, {
-      ...query,
-      select: {
-        attributeId: {
-          select: {
-            id: true,
-          },
-        },
-
-        brandid: {
-          select: {
-            id: true,
-          },
-        },
-
-        categoryid: true,
-        createdAt: true,
-        id: true,
-        image: true,
-        price: true,
-        productname: true,
-        sku: true,
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "CartItem",
-    action: "update",
-    possession: "any",
-  })
-  @common.Post("/:id/productid")
-  async connectProductid(
-    @common.Param() params: CartItemWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productid: {
-        connect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "CartItem",
-    action: "update",
-    possession: "any",
-  })
-  @common.Patch("/:id/productid")
-  async updateProductid(
-    @common.Param() params: CartItemWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productid: {
-        set: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "CartItem",
-    action: "update",
-    possession: "any",
-  })
-  @common.Delete("/:id/productid")
-  async disconnectProductid(
-    @common.Param() params: CartItemWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      productid: {
-        disconnect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

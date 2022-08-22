@@ -314,6 +314,13 @@ export class ProductControllerBase {
 
         createdAt: true,
         id: true,
+
+        productid: {
+          select: {
+            id: true,
+          },
+        },
+
         productprice: true,
         quantity: true,
         updatedAt: true,

@@ -6,8 +6,6 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
   NumberInput,
   TextInput,
 } from "react-admin";
@@ -22,14 +20,13 @@ export const CartItemEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput source="cart.id" reference="Cart" label="cartid">
           <SelectInput optionText={CartTitle} />
         </ReferenceInput>
-        <ReferenceArrayInput
-          source="productid"
+        <ReferenceInput
+          source="product.id"
           reference="Product"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
+          label="productid"
         >
-          <SelectArrayInput optionText={ProductTitle} />
-        </ReferenceArrayInput>
+          <SelectInput optionText={ProductTitle} />
+        </ReferenceInput>
         <NumberInput label="productprice" source="productprice" />
         <NumberInput step={1} label="quantity" source="quantity" />
         <TextInput label="userid" source="userid" />

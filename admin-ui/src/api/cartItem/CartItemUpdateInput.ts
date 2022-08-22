@@ -1,9 +1,9 @@
 import { CartWhereUniqueInput } from "../cart/CartWhereUniqueInput";
-import { ProductUpdateManyWithoutCartItemsInput } from "./ProductUpdateManyWithoutCartItemsInput";
+import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
 
 export type CartItemUpdateInput = {
   cartid?: CartWhereUniqueInput | null;
-  productid?: ProductUpdateManyWithoutCartItemsInput;
+  productid?: ProductWhereUniqueInput | null;
   productprice?: number | null;
   quantity?: number | null;
   userid?: string | null;
