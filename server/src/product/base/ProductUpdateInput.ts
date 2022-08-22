@@ -21,7 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
-import { CartUpdateManyWithoutProductsInput } from "./CartUpdateManyWithoutProductsInput";
+import { CartItemUpdateManyWithoutProductsInput } from "./CartItemUpdateManyWithoutProductsInput";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { OrderItemUpdateManyWithoutProductsInput } from "./OrderItemUpdateManyWithoutProductsInput";
@@ -37,7 +37,7 @@ class ProductUpdateInput {
   @Field(() => AttributeWhereUniqueInput, {
     nullable: true,
   })
-  attributeid?: AttributeWhereUniqueInput | null;
+  attributeId?: AttributeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -53,15 +53,15 @@ class ProductUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CartUpdateManyWithoutProductsInput,
+    type: () => CartItemUpdateManyWithoutProductsInput,
   })
   @ValidateNested()
-  @Type(() => CartUpdateManyWithoutProductsInput)
+  @Type(() => CartItemUpdateManyWithoutProductsInput)
   @IsOptional()
-  @Field(() => CartUpdateManyWithoutProductsInput, {
+  @Field(() => CartItemUpdateManyWithoutProductsInput, {
     nullable: true,
   })
-  carts?: CartUpdateManyWithoutProductsInput;
+  carts?: CartItemUpdateManyWithoutProductsInput;
 
   @ApiProperty({
     required: false,

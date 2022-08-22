@@ -4,28 +4,30 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  BooleanInput,
   ReferenceArrayInput,
   SelectArrayInput,
   NumberInput,
   TextInput,
 } from "react-admin";
 
-import { ProductTitle } from "../product/ProductTitle";
+import { CartItemTitle } from "../cartItem/CartItemTitle";
 
 export const CartEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <BooleanInput label="active" source="active" />
         <ReferenceArrayInput
-          source="productid"
-          reference="Product"
+          source="cartitems"
+          reference="CartItem"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={ProductTitle} />
+          <SelectArrayInput optionText={CartItemTitle} />
         </ReferenceArrayInput>
-        <NumberInput label="productprice" source="productprice" />
-        <NumberInput step={1} label="quantity" source="quantity" />
+        <NumberInput step={1} label="total_item" source="totalItem" />
+        <NumberInput label="totalprice" source="totalprice" />
         <TextInput label="userid" source="userid" />
       </SimpleForm>
     </Edit>

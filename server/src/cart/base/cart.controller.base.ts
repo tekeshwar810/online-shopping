@@ -27,9 +27,9 @@ import { CartWhereUniqueInput } from "./CartWhereUniqueInput";
 import { CartFindManyArgs } from "./CartFindManyArgs";
 import { CartUpdateInput } from "./CartUpdateInput";
 import { Cart } from "./Cart";
-import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
-import { Product } from "../../product/base/Product";
-import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { CartItemFindManyArgs } from "../../cartItem/base/CartItemFindManyArgs";
+import { CartItem } from "../../cartItem/base/CartItem";
+import { CartItemWhereUniqueInput } from "../../cartItem/base/CartItemWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class CartControllerBase {
@@ -51,10 +51,11 @@ export class CartControllerBase {
     return await this.service.create({
       data: data,
       select: {
+        active: true,
         createdAt: true,
         id: true,
-        productprice: true,
-        quantity: true,
+        totalItem: true,
+        totalprice: true,
         updatedAt: true,
         userid: true,
       },
@@ -76,10 +77,11 @@ export class CartControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        active: true,
         createdAt: true,
         id: true,
-        productprice: true,
-        quantity: true,
+        totalItem: true,
+        totalprice: true,
         updatedAt: true,
         userid: true,
       },
@@ -102,10 +104,11 @@ export class CartControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        active: true,
         createdAt: true,
         id: true,
-        productprice: true,
-        quantity: true,
+        totalItem: true,
+        totalprice: true,
         updatedAt: true,
         userid: true,
       },
@@ -137,10 +140,11 @@ export class CartControllerBase {
         where: params,
         data: data,
         select: {
+          active: true,
           createdAt: true,
           id: true,
-          productprice: true,
-          quantity: true,
+          totalItem: true,
+          totalprice: true,
           updatedAt: true,
           userid: true,
         },
@@ -171,10 +175,11 @@ export class CartControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          active: true,
           createdAt: true,
           id: true,
-          productprice: true,
-          quantity: true,
+          totalItem: true,
+          totalprice: true,
           updatedAt: true,
           userid: true,
         },
@@ -191,40 +196,32 @@ export class CartControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "Product",
+    resource: "CartItem",
     action: "read",
     possession: "any",
   })
-  @common.Get("/:id/productid")
-  @ApiNestedQuery(ProductFindManyArgs)
-  async findManyProductid(
+  @common.Get("/:id/cartitems")
+  @ApiNestedQuery(CartItemFindManyArgs)
+  async findManyCartitems(
     @common.Req() request: Request,
     @common.Param() params: CartWhereUniqueInput
-  ): Promise<Product[]> {
-    const query = plainToClass(ProductFindManyArgs, request.query);
-    const results = await this.service.findProductid(params.id, {
+  ): Promise<CartItem[]> {
+    const query = plainToClass(CartItemFindManyArgs, request.query);
+    const results = await this.service.findCartitems(params.id, {
       ...query,
       select: {
-        attributeid: {
+        cartid: {
           select: {
             id: true,
           },
         },
 
-        brandid: {
-          select: {
-            id: true,
-          },
-        },
-
-        categoryid: true,
         createdAt: true,
         id: true,
-        image: true,
-        price: true,
-        productname: true,
-        sku: true,
+        productprice: true,
+        quantity: true,
         updatedAt: true,
+        userid: true,
       },
     });
     if (results === null) {
@@ -240,13 +237,13 @@ export class CartControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Post("/:id/productid")
-  async connectProductid(
+  @common.Post("/:id/cartitems")
+  async connectCartitems(
     @common.Param() params: CartWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productid: {
+      cartitems: {
         connect: body,
       },
     };
@@ -262,13 +259,13 @@ export class CartControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Patch("/:id/productid")
-  async updateProductid(
+  @common.Patch("/:id/cartitems")
+  async updateCartitems(
     @common.Param() params: CartWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productid: {
+      cartitems: {
         set: body,
       },
     };
@@ -284,13 +281,13 @@ export class CartControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Delete("/:id/productid")
-  async disconnectProductid(
+  @common.Delete("/:id/cartitems")
+  async disconnectCartitems(
     @common.Param() params: CartWhereUniqueInput,
-    @common.Body() body: ProductWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      productid: {
+      cartitems: {
         disconnect: body,
       },
     };

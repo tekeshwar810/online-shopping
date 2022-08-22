@@ -1,8 +1,9 @@
-import { ProductCreateNestedManyWithoutCartsInput } from "./ProductCreateNestedManyWithoutCartsInput";
+import { CartItemCreateNestedManyWithoutCartsInput } from "./CartItemCreateNestedManyWithoutCartsInput";
 
 export type CartCreateInput = {
-  productid?: ProductCreateNestedManyWithoutCartsInput;
-  productprice?: number | null;
-  quantity?: number | null;
+  active?: boolean | null;
+  cartitems?: CartItemCreateNestedManyWithoutCartsInput;
+  totalItem?: number | null;
+  totalprice?: number | null;
   userid?: string | null;
 };

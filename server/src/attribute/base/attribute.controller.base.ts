@@ -205,7 +205,7 @@ export class AttributeControllerBase {
     const results = await this.service.findProducts(params.id, {
       ...query,
       select: {
-        attributeid: {
+        attributeId: {
           select: {
             id: true,
           },

@@ -21,10 +21,10 @@ import { CategoryList } from "./category/CategoryList";
 import { CategoryCreate } from "./category/CategoryCreate";
 import { CategoryEdit } from "./category/CategoryEdit";
 import { CategoryShow } from "./category/CategoryShow";
-import { CartList } from "./cart/CartList";
-import { CartCreate } from "./cart/CartCreate";
-import { CartEdit } from "./cart/CartEdit";
-import { CartShow } from "./cart/CartShow";
+import { CartItemList } from "./cartItem/CartItemList";
+import { CartItemCreate } from "./cartItem/CartItemCreate";
+import { CartItemEdit } from "./cartItem/CartItemEdit";
+import { CartItemShow } from "./cartItem/CartItemShow";
 import { AttributeList } from "./attribute/AttributeList";
 import { AttributeCreate } from "./attribute/AttributeCreate";
 import { AttributeEdit } from "./attribute/AttributeEdit";
@@ -37,6 +37,10 @@ import { OrderItemList } from "./orderItem/OrderItemList";
 import { OrderItemCreate } from "./orderItem/OrderItemCreate";
 import { OrderItemEdit } from "./orderItem/OrderItemEdit";
 import { OrderItemShow } from "./orderItem/OrderItemShow";
+import { CartList } from "./cart/CartList";
+import { CartCreate } from "./cart/CartCreate";
+import { CartEdit } from "./cart/CartEdit";
+import { CartShow } from "./cart/CartShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -92,11 +96,11 @@ const App = (): React.ReactElement => {
           show={CategoryShow}
         />
         <Resource
-          name="Cart"
-          list={CartList}
-          edit={CartEdit}
-          create={CartCreate}
-          show={CartShow}
+          name="CartItem"
+          list={CartItemList}
+          edit={CartItemEdit}
+          create={CartItemCreate}
+          show={CartItemShow}
         />
         <Resource
           name="Attribute"
@@ -118,6 +122,13 @@ const App = (): React.ReactElement => {
           edit={OrderItemEdit}
           create={OrderItemCreate}
           show={OrderItemShow}
+        />
+        <Resource
+          name="Cart"
+          list={CartList}
+          edit={CartEdit}
+          create={CartCreate}
+          show={CartShow}
         />
       </Admin>
     </div>

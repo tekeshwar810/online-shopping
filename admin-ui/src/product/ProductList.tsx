@@ -22,7 +22,7 @@ export const ProductList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <ReferenceField
-          label="attributeid"
+          label="attribute_id"
           source="attribute.id"
           reference="Attribute"
         >

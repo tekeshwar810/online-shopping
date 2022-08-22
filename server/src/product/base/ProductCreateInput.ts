@@ -21,7 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
-import { CartCreateNestedManyWithoutProductsInput } from "./CartCreateNestedManyWithoutProductsInput";
+import { CartItemCreateNestedManyWithoutProductsInput } from "./CartItemCreateNestedManyWithoutProductsInput";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { OrderItemCreateNestedManyWithoutProductsInput } from "./OrderItemCreateNestedManyWithoutProductsInput";
@@ -37,7 +37,7 @@ class ProductCreateInput {
   @Field(() => AttributeWhereUniqueInput, {
     nullable: true,
   })
-  attributeid?: AttributeWhereUniqueInput | null;
+  attributeId?: AttributeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -53,15 +53,15 @@ class ProductCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => CartCreateNestedManyWithoutProductsInput,
+    type: () => CartItemCreateNestedManyWithoutProductsInput,
   })
   @ValidateNested()
-  @Type(() => CartCreateNestedManyWithoutProductsInput)
+  @Type(() => CartItemCreateNestedManyWithoutProductsInput)
   @IsOptional()
-  @Field(() => CartCreateNestedManyWithoutProductsInput, {
+  @Field(() => CartItemCreateNestedManyWithoutProductsInput, {
     nullable: true,
   })
-  carts?: CartCreateNestedManyWithoutProductsInput;
+  carts?: CartItemCreateNestedManyWithoutProductsInput;
 
   @ApiProperty({
     required: true,
@@ -116,7 +116,5 @@ class ProductCreateInput {
     nullable: true,
   })
   sku?: string | null;
-
-  
 }
 export { ProductCreateInput };

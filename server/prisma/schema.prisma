@@ -5,7 +5,6 @@ datasource postgres {
 
 generator client {
   provider = "prisma-client-js"
-   previewFeatures = ["filterJson"]
 }
 
 model User {
@@ -23,12 +22,12 @@ model User {
 }
 
 model Product {
-  attributeid   Attribute?  @relation(fields: [attributeidId], references: [id])
-  attributeidId String?
+  attributeId   Attribute?  @relation(fields: [attributeIdId], references: [id])
+  attributeIdId String?
   brandid       Brand?      @relation(fields: [brandidId], references: [id])
   brandidId     String?
-  carts         Cart[]
-  categoryid    Json?
+  carts         CartItem[]
+  categoryid    Json
   createdAt     DateTime    @default(now())
   id            String      @id @default(cuid())
   image         String
@@ -55,7 +54,9 @@ model Category {
   updatedAt    DateTime @updatedAt
 }
 
-model Cart {
+model CartItem {
+  cartid       Cart?     @relation(fields: [cartidId], references: [id])
+  cartidId     String?
   createdAt    DateTime  @default(now())
   id           String    @id @default(cuid())
   productid    Product[]
@@ -95,4 +96,15 @@ model OrderItem {
   productprice Float?
   quantity     Int?
   updatedAt    DateTime @updatedAt
+}
+
+model Cart {
+  active     Boolean?
+  cartitems  CartItem[]
+  createdAt  DateTime   @default(now())
+  id         String     @id @default(cuid())
+  totalItem  Int?
+  totalprice Float?
+  updatedAt  DateTime   @updatedAt
+  userid     String?
 }

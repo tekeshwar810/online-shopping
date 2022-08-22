@@ -1,13 +1,13 @@
 import { AttributeWhereUniqueInput } from "../attribute/AttributeWhereUniqueInput";
 import { BrandWhereUniqueInput } from "../brand/BrandWhereUniqueInput";
-import { CartCreateNestedManyWithoutProductsInput } from "./CartCreateNestedManyWithoutProductsInput";
+import { CartItemCreateNestedManyWithoutProductsInput } from "./CartItemCreateNestedManyWithoutProductsInput";
 import { InputJsonValue } from "../../types";
 import { OrderItemCreateNestedManyWithoutProductsInput } from "./OrderItemCreateNestedManyWithoutProductsInput";
 
 export type ProductCreateInput = {
-  attributeid?: AttributeWhereUniqueInput | null;
+  attributeId?: AttributeWhereUniqueInput | null;
   brandid?: BrandWhereUniqueInput | null;
-  carts?: CartCreateNestedManyWithoutProductsInput;
+  carts?: CartItemCreateNestedManyWithoutProductsInput;
   categoryid: InputJsonValue;
   image: string;
   orderItems?: OrderItemCreateNestedManyWithoutProductsInput;

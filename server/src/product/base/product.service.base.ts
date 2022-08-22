@@ -13,7 +13,7 @@ import { PrismaService } from "nestjs-prisma";
 import {
   Prisma,
   Product,
-  Cart,
+  CartItem,
   OrderItem,
   Attribute,
   Brand,
@@ -56,8 +56,8 @@ export class ProductServiceBase {
 
   async findCarts(
     parentId: string,
-    args: Prisma.CartFindManyArgs
-  ): Promise<Cart[]> {
+    args: Prisma.CartItemFindManyArgs
+  ): Promise<CartItem[]> {
     return this.prisma.product
       .findUnique({
         where: { id: parentId },
@@ -76,12 +76,12 @@ export class ProductServiceBase {
       .orderItems(args);
   }
 
-  async getAttributeid(parentId: string): Promise<Attribute | null> {
+  async getAttributeId(parentId: string): Promise<Attribute | null> {
     return this.prisma.product
       .findUnique({
         where: { id: parentId },
       })
-      .attributeid();
+      .attributeId();
   }
 
   async getBrandid(parentId: string): Promise<Brand | null> {

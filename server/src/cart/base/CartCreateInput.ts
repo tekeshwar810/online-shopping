@@ -11,39 +11,40 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductCreateNestedManyWithoutCartsInput } from "./ProductCreateNestedManyWithoutCartsInput";
 import {
-  ValidateNested,
+  IsBoolean,
   IsOptional,
-  IsNumber,
+  ValidateNested,
   IsInt,
+  IsNumber,
   IsString,
 } from "class-validator";
+import { CartItemCreateNestedManyWithoutCartsInput } from "./CartItemCreateNestedManyWithoutCartsInput";
 import { Type } from "class-transformer";
 @InputType()
 class CartCreateInput {
   @ApiProperty({
     required: false,
-    type: () => ProductCreateNestedManyWithoutCartsInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => ProductCreateNestedManyWithoutCartsInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => ProductCreateNestedManyWithoutCartsInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  productid?: ProductCreateNestedManyWithoutCartsInput;
+  active?: boolean | null;
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: () => CartItemCreateNestedManyWithoutCartsInput,
   })
-  @IsNumber()
+  @ValidateNested()
+  @Type(() => CartItemCreateNestedManyWithoutCartsInput)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => CartItemCreateNestedManyWithoutCartsInput, {
     nullable: true,
   })
-  productprice?: number | null;
+  cartitems?: CartItemCreateNestedManyWithoutCartsInput;
 
   @ApiProperty({
     required: false,
@@ -54,7 +55,18 @@ class CartCreateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  quantity?: number | null;
+  totalItem?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  totalprice?: number | null;
 
   @ApiProperty({
     required: false,
