@@ -19,7 +19,7 @@ export class ProductService extends ProductServiceBase {
         productname: true,
         sku: true,
         updatedAt: true,
-        attributeid: {
+        attributeId: {
           select: {
             id: true,
             name:true,
@@ -54,7 +54,7 @@ export class ProductService extends ProductServiceBase {
       brandidId:data.brandid,
       categoryid:categoryid,
       image:imgPath,
-      attributeidId:data.attributeid
+      attributeIdId:data.attributeid
      },
      select:{
       productname:true,
@@ -80,7 +80,7 @@ export class ProductService extends ProductServiceBase {
         brandidId:data.brandid,
         categoryid:categoryid,
         image:imgPath,
-        attributeidId:data.attributeid
+        attributeIdId:data.attributeid
       }
     })
     if(updateProduct){

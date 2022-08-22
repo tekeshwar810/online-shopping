@@ -47,6 +47,11 @@ input AttributeWhereUniqueInput {
   id: String!
 }
 
+input BooleanNullableFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 type Brand {
   brandname: String!
   createdAt: DateTime!
@@ -83,6 +88,26 @@ input BrandWhereUniqueInput {
 }
 
 type Cart {
+  active: Boolean
+  cartitems(orderBy: [CartItemOrderByInput!], skip: Float, take: Float, where: CartItemWhereInput): [CartItem!]!
+  createdAt: DateTime!
+  id: String!
+  totalItem: Float
+  totalprice: Float
+  updatedAt: DateTime!
+  userid: String
+}
+
+input CartCreateInput {
+  active: Boolean
+  cartitems: CartItemCreateNestedManyWithoutCartsInput
+  totalItem: Float
+  totalprice: Float
+  userid: String
+}
+
+type CartItem {
+  cartid: Cart
   createdAt: DateTime!
   id: String!
   productid(orderBy: [ProductOrderByInput!], skip: Float, take: Float, where: ProductWhereInput): [Product!]!
@@ -92,24 +117,30 @@ type Cart {
   userid: String
 }
 
-input CartCreateInput {
-  productid: ProductCreateNestedManyWithoutCartsInput
+input CartItemCreateInput {
+  cartid: CartWhereUniqueInput
+  productid: ProductCreateNestedManyWithoutCartItemsInput
   productprice: Float
   quantity: Float
   userid: String
 }
 
-input CartCreateNestedManyWithoutProductsInput {
-  connect: [CartWhereUniqueInput!]
+input CartItemCreateNestedManyWithoutCartsInput {
+  connect: [CartItemWhereUniqueInput!]
 }
 
-input CartListRelationFilter {
-  every: CartWhereInput
-  none: CartWhereInput
-  some: CartWhereInput
+input CartItemCreateNestedManyWithoutProductsInput {
+  connect: [CartItemWhereUniqueInput!]
 }
 
-input CartOrderByInput {
+input CartItemListRelationFilter {
+  every: CartItemWhereInput
+  none: CartItemWhereInput
+  some: CartItemWhereInput
+}
+
+input CartItemOrderByInput {
+  cartidId: SortOrder
   createdAt: SortOrder
   id: SortOrder
   productprice: SortOrder
@@ -118,24 +149,63 @@ input CartOrderByInput {
   userid: SortOrder
 }
 
-input CartUpdateInput {
-  productid: ProductUpdateManyWithoutCartsInput
+input CartItemUpdateInput {
+  cartid: CartWhereUniqueInput
+  productid: ProductUpdateManyWithoutCartItemsInput
   productprice: Float
   quantity: Float
   userid: String
 }
 
-input CartUpdateManyWithoutProductsInput {
-  connect: [CartWhereUniqueInput!]
-  disconnect: [CartWhereUniqueInput!]
-  set: [CartWhereUniqueInput!]
+input CartItemUpdateManyWithoutCartsInput {
+  connect: [CartItemWhereUniqueInput!]
+  disconnect: [CartItemWhereUniqueInput!]
+  set: [CartItemWhereUniqueInput!]
 }
 
-input CartWhereInput {
+input CartItemUpdateManyWithoutProductsInput {
+  connect: [CartItemWhereUniqueInput!]
+  disconnect: [CartItemWhereUniqueInput!]
+  set: [CartItemWhereUniqueInput!]
+}
+
+input CartItemWhereInput {
+  cartid: CartWhereUniqueInput
   id: StringFilter
   productid: ProductListRelationFilter
   productprice: FloatNullableFilter
   quantity: IntNullableFilter
+  userid: StringNullableFilter
+}
+
+input CartItemWhereUniqueInput {
+  id: String!
+}
+
+input CartOrderByInput {
+  active: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  totalItem: SortOrder
+  totalprice: SortOrder
+  updatedAt: SortOrder
+  userid: SortOrder
+}
+
+input CartUpdateInput {
+  active: Boolean
+  cartitems: CartItemUpdateManyWithoutCartsInput
+  totalItem: Float
+  totalprice: Float
+  userid: String
+}
+
+input CartWhereInput {
+  active: BooleanNullableFilter
+  cartitems: CartItemListRelationFilter
+  id: StringFilter
+  totalItem: IntNullableFilter
+  totalprice: FloatNullableFilter
   userid: StringNullableFilter
 }
 
@@ -240,6 +310,7 @@ type Mutation {
   createAttribute(data: AttributeCreateInput!): Attribute!
   createBrand(data: BrandCreateInput!): Brand!
   createCart(data: CartCreateInput!): Cart!
+  createCartItem(data: CartItemCreateInput!): CartItem!
   createCategory(data: CategoryCreateInput!): Category!
   createOrder(data: OrderCreateInput!): Order!
   createOrderItem(data: OrderItemCreateInput!): OrderItem!
@@ -248,6 +319,7 @@ type Mutation {
   deleteAttribute(where: AttributeWhereUniqueInput!): Attribute!
   deleteBrand(where: BrandWhereUniqueInput!): Brand!
   deleteCart(where: CartWhereUniqueInput!): Cart!
+  deleteCartItem(where: CartItemWhereUniqueInput!): CartItem!
   deleteCategory(where: CategoryWhereUniqueInput!): Category!
   deleteOrder(where: OrderWhereUniqueInput!): Order!
   deleteOrderItem(where: OrderItemWhereUniqueInput!): OrderItem!
@@ -257,6 +329,7 @@ type Mutation {
   updateAttribute(data: AttributeUpdateInput!, where: AttributeWhereUniqueInput!): Attribute!
   updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Brand!
   updateCart(data: CartUpdateInput!, where: CartWhereUniqueInput!): Cart!
+  updateCartItem(data: CartItemUpdateInput!, where: CartItemWhereUniqueInput!): CartItem!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order!
   updateOrderItem(data: OrderItemUpdateInput!, where: OrderItemWhereUniqueInput!): OrderItem!
@@ -393,9 +466,9 @@ input OrderWhereUniqueInput {
 }
 
 type Product {
-  attributeid: Attribute
+  attributeId: Attribute
   brandid: Brand
-  carts(orderBy: [CartOrderByInput!], skip: Float, take: Float, where: CartWhereInput): [Cart!]!
+  carts(orderBy: [CartItemOrderByInput!], skip: Float, take: Float, where: CartItemWhereInput): [CartItem!]!
   categoryid: JSONObject!
   createdAt: DateTime!
   id: String!
@@ -408,9 +481,9 @@ type Product {
 }
 
 input ProductCreateInput {
-  attributeid: AttributeWhereUniqueInput
+  attributeId: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
-  carts: CartCreateNestedManyWithoutProductsInput
+  carts: CartItemCreateNestedManyWithoutProductsInput
   categoryid: JSONObject!
   image: String!
   orderItems: OrderItemCreateNestedManyWithoutProductsInput
@@ -427,7 +500,7 @@ input ProductCreateNestedManyWithoutBrandsInput {
   connect: [ProductWhereUniqueInput!]
 }
 
-input ProductCreateNestedManyWithoutCartsInput {
+input ProductCreateNestedManyWithoutCartItemsInput {
   connect: [ProductWhereUniqueInput!]
 }
 
@@ -438,7 +511,7 @@ input ProductListRelationFilter {
 }
 
 input ProductOrderByInput {
-  attributeidId: SortOrder
+  attributeIdId: SortOrder
   brandidId: SortOrder
   categoryid: SortOrder
   createdAt: SortOrder
@@ -451,9 +524,9 @@ input ProductOrderByInput {
 }
 
 input ProductUpdateInput {
-  attributeid: AttributeWhereUniqueInput
+  attributeId: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
-  carts: CartUpdateManyWithoutProductsInput
+  carts: CartItemUpdateManyWithoutProductsInput
   categoryid: JSONObject
   image: String
   orderItems: OrderItemUpdateManyWithoutProductsInput
@@ -474,16 +547,16 @@ input ProductUpdateManyWithoutBrandsInput {
   set: [ProductWhereUniqueInput!]
 }
 
-input ProductUpdateManyWithoutCartsInput {
+input ProductUpdateManyWithoutCartItemsInput {
   connect: [ProductWhereUniqueInput!]
   disconnect: [ProductWhereUniqueInput!]
   set: [ProductWhereUniqueInput!]
 }
 
 input ProductWhereInput {
-  attributeid: AttributeWhereUniqueInput
+  attributeId: AttributeWhereUniqueInput
   brandid: BrandWhereUniqueInput
-  carts: CartListRelationFilter
+  carts: CartItemListRelationFilter
   categoryid: JsonFilter
   id: StringFilter
   image: StringFilter
@@ -500,6 +573,7 @@ input ProductWhereUniqueInput {
 type Query {
   _attributesMeta(orderBy: [AttributeOrderByInput!], skip: Float, take: Float, where: AttributeWhereInput): MetaQueryPayload!
   _brandsMeta(orderBy: [BrandOrderByInput!], skip: Float, take: Float, where: BrandWhereInput): MetaQueryPayload!
+  _cartItemsMeta(orderBy: [CartItemOrderByInput!], skip: Float, take: Float, where: CartItemWhereInput): MetaQueryPayload!
   _cartsMeta(orderBy: [CartOrderByInput!], skip: Float, take: Float, where: CartWhereInput): MetaQueryPayload!
   _categoriesMeta(orderBy: [CategoryOrderByInput!], skip: Float, take: Float, where: CategoryWhereInput): MetaQueryPayload!
   _orderItemsMeta(orderBy: [OrderItemOrderByInput!], skip: Float, take: Float, where: OrderItemWhereInput): MetaQueryPayload!
@@ -511,6 +585,8 @@ type Query {
   brand(where: BrandWhereUniqueInput!): Brand
   brands(orderBy: [BrandOrderByInput!], skip: Float, take: Float, where: BrandWhereInput): [Brand!]!
   cart(where: CartWhereUniqueInput!): Cart
+  cartItem(where: CartItemWhereUniqueInput!): CartItem
+  cartItems(orderBy: [CartItemOrderByInput!], skip: Float, take: Float, where: CartItemWhereInput): [CartItem!]!
   carts(orderBy: [CartOrderByInput!], skip: Float, take: Float, where: CartWhereInput): [Cart!]!
   categories(orderBy: [CategoryOrderByInput!], skip: Float, take: Float, where: CategoryWhereInput): [Category!]!
   category(where: CategoryWhereUniqueInput!): Category
