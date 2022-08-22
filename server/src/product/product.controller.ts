@@ -18,6 +18,7 @@ import { AddProductInput } from "./AddProductInput";
 import { EditProductInput } from "./EditProductInput";
 import { FilterProductInput } from "./FilterProductInput"
 import { ProductWhereUniqueInput } from "./base/ProductWhereUniqueInput";
+import { SearchProductInput } from "./SearchProductInput";
 
 
 @swagger.ApiTags("products")
@@ -110,5 +111,19 @@ export class ProductController extends ProductControllerBase {
   async filterProduct(@common.Body() data: FilterProductInput):Promise<Object>{
     const productList =  await this.service.filterProducts(data)
     return productList;
+  }
+
+  @common.Post("/searchProduct")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "create",
+    possession: "own",
+  })
+  @swagger.ApiOkResponse({ type: Product })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async searchProduct(@common.Body() data: SearchProductInput):Promise<any>{
+    const product =  await this.service.searchProducts(data)
+    return product
   }
 }

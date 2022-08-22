@@ -94,7 +94,7 @@ export class ProductService extends ProductServiceBase {
     let fillterData = []
     const categoryid = data.categoryid
     const brandidId = data.brandidId
-
+    
     if(categoryid != undefined && categoryid.trim() != ""){
       let condition = {
         categoryid:{
@@ -133,6 +133,27 @@ export class ProductService extends ProductServiceBase {
       },
     })
     return fillterDataResponse
+  }
+
+  async searchProducts(data:any){
+    let searchText = data.searchText;
+    const productRes = await this.prisma.$queryRawUnsafe(
+      `SELECT 
+       product.id as productid,
+       product.productname,
+       product.price,
+       product.image,
+       product.sku,
+       product.categoryid,
+       brand.id as brandid, 
+       brand.brandname
+       FROM "public"."Product" as product
+       LEFT JOIN "public"."Brand" as brand ON Brand.id = product."brandidId"
+       WHERE (product.productname LIKE $1 OR product.sku = $2)`,
+      `%${searchText}%`,
+       searchText
+  )
+  return productRes
   }
  
 }
