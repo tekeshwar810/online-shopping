@@ -25,9 +25,8 @@ import { DeleteCartItemArgs } from "./DeleteCartItemArgs";
 import { CartItemFindManyArgs } from "./CartItemFindManyArgs";
 import { CartItemFindUniqueArgs } from "./CartItemFindUniqueArgs";
 import { CartItem } from "./CartItem";
-import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
-import { Product } from "../../product/base/Product";
 import { Cart } from "../../cart/base/Cart";
+import { Product } from "../../product/base/Product";
 import { CartItemService } from "../cartItem.service";
 
 @graphql.Resolver(() => CartItem)
@@ -107,6 +106,12 @@ export class CartItemResolverBase {
               connect: args.data.cartid,
             }
           : undefined,
+
+        productid: args.data.productid
+          ? {
+              connect: args.data.productid,
+            }
+          : undefined,
       },
     });
   }
@@ -130,6 +135,12 @@ export class CartItemResolverBase {
           cartid: args.data.cartid
             ? {
                 connect: args.data.cartid,
+              }
+            : undefined,
+
+          productid: args.data.productid
+            ? {
+                connect: args.data.productid,
               }
             : undefined,
         },
@@ -166,26 +177,6 @@ export class CartItemResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Product])
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "read",
-    possession: "any",
-  })
-  async productid(
-    @graphql.Parent() parent: CartItem,
-    @graphql.Args() args: ProductFindManyArgs
-  ): Promise<Product[]> {
-    const results = await this.service.findProductid(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Cart, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Cart",
@@ -194,6 +185,22 @@ export class CartItemResolverBase {
   })
   async cartid(@graphql.Parent() parent: CartItem): Promise<Cart | null> {
     const result = await this.service.getCartid(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Product, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "any",
+  })
+  async productid(@graphql.Parent() parent: CartItem): Promise<Product | null> {
+    const result = await this.service.getProductid(parent.id);
 
     if (!result) {
       return null;

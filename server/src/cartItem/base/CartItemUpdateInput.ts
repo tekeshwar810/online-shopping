@@ -20,7 +20,7 @@ import {
   IsString,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { ProductUpdateManyWithoutCartItemsInput } from "./ProductUpdateManyWithoutCartItemsInput";
+import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 @InputType()
 class CartItemUpdateInput {
   @ApiProperty({
@@ -37,15 +37,15 @@ class CartItemUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductUpdateManyWithoutCartItemsInput,
+    type: () => ProductWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductUpdateManyWithoutCartItemsInput)
+  @Type(() => ProductWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductUpdateManyWithoutCartItemsInput, {
+  @Field(() => ProductWhereUniqueInput, {
     nullable: true,
   })
-  productid?: ProductUpdateManyWithoutCartItemsInput;
+  productid?: ProductWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -52,6 +52,15 @@ class CartItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  productidId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   productprice?: SortOrder;
 
   @ApiProperty({

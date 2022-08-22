@@ -5,7 +5,7 @@ export type CartItem = {
   cartid?: Cart | null;
   createdAt: Date;
   id: string;
-  productid?: Array<Product>;
+  productid?: Product | null;
   productprice: number | null;
   quantity: number | null;
   updatedAt: Date;
