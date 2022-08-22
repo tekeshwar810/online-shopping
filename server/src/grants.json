@@ -235,6 +235,246 @@
   },
   {
     "role": "admin",
+    "resource": "CartItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "CartItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "CartItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "CartItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "CartItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "CartItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "CartItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "CartItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "CartItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "CartItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Attribute",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Attribute",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Attribute",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Attribute",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Attribute",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Attribute",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Attribute",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Attribute",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Attribute",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Attribute",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Order",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Order",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Order",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Order",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "Order",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "OrderItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "OrderItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "OrderItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "OrderItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "shopper",
+    "resource": "OrderItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Cart",
     "action": "read:own",
     "attributes": "*"
@@ -290,186 +530,6 @@
   {
     "role": "shopper",
     "resource": "Cart",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Order",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Order",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Order",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Order",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Order",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Order",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Order",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Order",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Order",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Order",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "OrderItem",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "OrderItem",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "OrderItem",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "OrderItem",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "OrderItem",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "OrderItem",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "OrderItem",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "OrderItem",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "OrderItem",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "OrderItem",
     "action": "read:any",
     "attributes": "*"
   }

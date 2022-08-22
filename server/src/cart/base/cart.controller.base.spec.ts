@@ -11,36 +11,40 @@ import { CartService } from "../cart.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  active: "true",
   createdAt: new Date(),
   id: "exampleId",
-  productprice: 42.42,
-  quantity: 42,
+  totalItem: 42,
+  totalprice: 42.42,
   updatedAt: new Date(),
   userid: "exampleUserid",
 };
 const CREATE_RESULT = {
+  active: "true",
   createdAt: new Date(),
   id: "exampleId",
-  productprice: 42.42,
-  quantity: 42,
+  totalItem: 42,
+  totalprice: 42.42,
   updatedAt: new Date(),
   userid: "exampleUserid",
 };
 const FIND_MANY_RESULT = [
   {
+    active: "true",
     createdAt: new Date(),
     id: "exampleId",
-    productprice: 42.42,
-    quantity: 42,
+    totalItem: 42,
+    totalprice: 42.42,
     updatedAt: new Date(),
     userid: "exampleUserid",
   },
 ];
 const FIND_ONE_RESULT = {
+  active: "true",
   createdAt: new Date(),
   id: "exampleId",
-  productprice: 42.42,
-  quantity: 42,
+  totalItem: 42,
+  totalprice: 42.42,
   updatedAt: new Date(),
   userid: "exampleUserid",
 };

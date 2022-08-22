@@ -31,7 +31,7 @@ export const AttributeShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="attributeid"
+              label="attribute_id"
               source="attribute.id"
               reference="Attribute"
             >

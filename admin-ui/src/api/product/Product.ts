@@ -1,13 +1,13 @@
 import { Attribute } from "../attribute/Attribute";
 import { Brand } from "../brand/Brand";
-import { Cart } from "../cart/Cart";
+import { CartItem } from "../cartItem/CartItem";
 import { JsonValue } from "type-fest";
 import { OrderItem } from "../orderItem/OrderItem";
 
 export type Product = {
-  attributeid?: Attribute | null;
+  attributeId?: Attribute | null;
   brandid?: Brand | null;
-  carts?: Array<Cart>;
+  carts?: Array<CartItem>;
   categoryid: JsonValue;
   createdAt: Date;
   id: string;

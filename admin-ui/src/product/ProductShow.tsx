@@ -21,7 +21,7 @@ export const ProductShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <ReferenceField
-          label="attributeid"
+          label="attribute_id"
           source="attribute.id"
           reference="Attribute"
         >

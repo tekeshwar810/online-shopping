@@ -1,8 +1,9 @@
-import { ProductUpdateManyWithoutCartsInput } from "./ProductUpdateManyWithoutCartsInput";
+import { CartItemUpdateManyWithoutCartsInput } from "./CartItemUpdateManyWithoutCartsInput";
 
 export type CartUpdateInput = {
-  productid?: ProductUpdateManyWithoutCartsInput;
-  productprice?: number | null;
-  quantity?: number | null;
+  active?: boolean | null;
+  cartitems?: CartItemUpdateManyWithoutCartsInput;
+  totalItem?: number | null;
+  totalprice?: number | null;
   userid?: string | null;
 };

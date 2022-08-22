@@ -1,11 +1,12 @@
-import { Product } from "../product/Product";
+import { CartItem } from "../cartItem/CartItem";
 
 export type Cart = {
+  active: boolean | null;
+  cartitems?: Array<CartItem>;
   createdAt: Date;
   id: string;
-  productid?: Array<Product>;
-  productprice: number | null;
-  quantity: number | null;
+  totalItem: number | null;
+  totalprice: number | null;
   updatedAt: Date;
   userid: string | null;
 };

@@ -11,15 +11,39 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { ProductListRelationFilter } from "../../product/base/ProductListRelationFilter";
-import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { CartItemListRelationFilter } from "../../cartItem/base/CartItemListRelationFilter";
+import { StringFilter } from "../../util/StringFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 @InputType()
 class CartWhereInput {
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  active?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => CartItemListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => CartItemListRelationFilter)
+  @IsOptional()
+  @Field(() => CartItemListRelationFilter, {
+    nullable: true,
+  })
+  cartitems?: CartItemListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -33,15 +57,14 @@ class CartWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductListRelationFilter,
+    type: IntNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => ProductListRelationFilter)
+  @Type(() => IntNullableFilter)
   @IsOptional()
-  @Field(() => ProductListRelationFilter, {
+  @Field(() => IntNullableFilter, {
     nullable: true,
   })
-  productid?: ProductListRelationFilter;
+  totalItem?: IntNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -52,18 +75,7 @@ class CartWhereInput {
   @Field(() => FloatNullableFilter, {
     nullable: true,
   })
-  productprice?: FloatNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: IntNullableFilter,
-  })
-  @Type(() => IntNullableFilter)
-  @IsOptional()
-  @Field(() => IntNullableFilter, {
-    nullable: true,
-  })
-  quantity?: IntNullableFilter;
+  totalprice?: FloatNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -15,7 +15,7 @@ import { AttributeWhereUniqueInput } from "../../attribute/base/AttributeWhereUn
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { BrandWhereUniqueInput } from "../../brand/base/BrandWhereUniqueInput";
-import { CartListRelationFilter } from "../../cart/base/CartListRelationFilter";
+import { CartItemListRelationFilter } from "../../cartItem/base/CartItemListRelationFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { OrderItemListRelationFilter } from "../../orderItem/base/OrderItemListRelationFilter";
@@ -33,7 +33,7 @@ class ProductWhereInput {
   @Field(() => AttributeWhereUniqueInput, {
     nullable: true,
   })
-  attributeid?: AttributeWhereUniqueInput;
+  attributeId?: AttributeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -49,15 +49,15 @@ class ProductWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => CartListRelationFilter,
+    type: () => CartItemListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => CartListRelationFilter)
+  @Type(() => CartItemListRelationFilter)
   @IsOptional()
-  @Field(() => CartListRelationFilter, {
+  @Field(() => CartItemListRelationFilter, {
     nullable: true,
   })
-  carts?: CartListRelationFilter;
+  carts?: CartItemListRelationFilter;
 
   @ApiProperty({
     required: false,

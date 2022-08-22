@@ -27,9 +27,9 @@ import { ProductWhereUniqueInput } from "./ProductWhereUniqueInput";
 import { ProductFindManyArgs } from "./ProductFindManyArgs";
 import { ProductUpdateInput } from "./ProductUpdateInput";
 import { Product } from "./Product";
-import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
-import { Cart } from "../../cart/base/Cart";
-import { CartWhereUniqueInput } from "../../cart/base/CartWhereUniqueInput";
+import { CartItemFindManyArgs } from "../../cartItem/base/CartItemFindManyArgs";
+import { CartItem } from "../../cartItem/base/CartItem";
+import { CartItemWhereUniqueInput } from "../../cartItem/base/CartItemWhereUniqueInput";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { OrderItemWhereUniqueInput } from "../../orderItem/base/OrderItemWhereUniqueInput";
@@ -55,9 +55,9 @@ export class ProductControllerBase {
       data: {
         ...data,
 
-        attributeid: data.attributeid
+        attributeId: data.attributeId
           ? {
-              connect: data.attributeid,
+              connect: data.attributeId,
             }
           : undefined,
 
@@ -68,7 +68,7 @@ export class ProductControllerBase {
           : undefined,
       },
       select: {
-        attributeid: {
+        attributeId: {
           select: {
             id: true,
           },
@@ -107,10 +107,9 @@ export class ProductControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        attributeid: {
+        attributeId: {
           select: {
             id: true,
-            name:true
           },
         },
 
@@ -148,7 +147,7 @@ export class ProductControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        attributeid: {
+        attributeId: {
           select: {
             id: true,
           },
@@ -198,9 +197,9 @@ export class ProductControllerBase {
         data: {
           ...data,
 
-          attributeid: data.attributeid
+          attributeId: data.attributeId
             ? {
-                connect: data.attributeid,
+                connect: data.attributeId,
               }
             : undefined,
 
@@ -211,7 +210,7 @@ export class ProductControllerBase {
             : undefined,
         },
         select: {
-          attributeid: {
+          attributeId: {
             select: {
               id: true,
             },
@@ -259,7 +258,7 @@ export class ProductControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          attributeid: {
+          attributeId: {
             select: {
               id: true,
             },
@@ -293,20 +292,26 @@ export class ProductControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "Cart",
+    resource: "CartItem",
     action: "read",
     possession: "any",
   })
   @common.Get("/:id/carts")
-  @ApiNestedQuery(CartFindManyArgs)
+  @ApiNestedQuery(CartItemFindManyArgs)
   async findManyCarts(
     @common.Req() request: Request,
     @common.Param() params: ProductWhereUniqueInput
-  ): Promise<Cart[]> {
-    const query = plainToClass(CartFindManyArgs, request.query);
+  ): Promise<CartItem[]> {
+    const query = plainToClass(CartItemFindManyArgs, request.query);
     const results = await this.service.findCarts(params.id, {
       ...query,
       select: {
+        cartid: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         productprice: true,
@@ -331,7 +336,7 @@ export class ProductControllerBase {
   @common.Post("/:id/carts")
   async connectCarts(
     @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CartWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       carts: {
@@ -353,7 +358,7 @@ export class ProductControllerBase {
   @common.Patch("/:id/carts")
   async updateCarts(
     @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CartWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       carts: {
@@ -375,7 +380,7 @@ export class ProductControllerBase {
   @common.Delete("/:id/carts")
   async disconnectCarts(
     @common.Param() params: ProductWhereUniqueInput,
-    @common.Body() body: CartWhereUniqueInput[]
+    @common.Body() body: CartItemWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       carts: {

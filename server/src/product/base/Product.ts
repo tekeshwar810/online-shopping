@@ -22,7 +22,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Brand } from "../../brand/base/Brand";
-import { Cart } from "../../cart/base/Cart";
+import { CartItem } from "../../cartItem/base/CartItem";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { OrderItem } from "../../orderItem/base/OrderItem";
@@ -35,7 +35,7 @@ class Product {
   @ValidateNested()
   @Type(() => Attribute)
   @IsOptional()
-  attributeid?: Attribute | null;
+  attributeId?: Attribute | null;
 
   @ApiProperty({
     required: false,
@@ -48,12 +48,12 @@ class Product {
 
   @ApiProperty({
     required: false,
-    type: () => [Cart],
+    type: () => [CartItem],
   })
   @ValidateNested()
-  @Type(() => Cart)
+  @Type(() => CartItem)
   @IsOptional()
-  carts?: Array<Cart>;
+  carts?: Array<CartItem>;
 
   @ApiProperty({
     required: true,

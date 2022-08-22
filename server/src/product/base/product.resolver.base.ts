@@ -25,8 +25,8 @@ import { DeleteProductArgs } from "./DeleteProductArgs";
 import { ProductFindManyArgs } from "./ProductFindManyArgs";
 import { ProductFindUniqueArgs } from "./ProductFindUniqueArgs";
 import { Product } from "./Product";
-import { CartFindManyArgs } from "../../cart/base/CartFindManyArgs";
-import { Cart } from "../../cart/base/Cart";
+import { CartItemFindManyArgs } from "../../cartItem/base/CartItemFindManyArgs";
+import { CartItem } from "../../cartItem/base/CartItem";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { Attribute } from "../../attribute/base/Attribute";
@@ -105,9 +105,9 @@ export class ProductResolverBase {
       data: {
         ...args.data,
 
-        attributeid: args.data.attributeid
+        attributeId: args.data.attributeId
           ? {
-              connect: args.data.attributeid,
+              connect: args.data.attributeId,
             }
           : undefined,
 
@@ -136,9 +136,9 @@ export class ProductResolverBase {
         data: {
           ...args.data,
 
-          attributeid: args.data.attributeid
+          attributeId: args.data.attributeId
             ? {
-                connect: args.data.attributeid,
+                connect: args.data.attributeId,
               }
             : undefined,
 
@@ -181,16 +181,16 @@ export class ProductResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Cart])
+  @graphql.ResolveField(() => [CartItem])
   @nestAccessControl.UseRoles({
-    resource: "Cart",
+    resource: "CartItem",
     action: "read",
     possession: "any",
   })
   async carts(
     @graphql.Parent() parent: Product,
-    @graphql.Args() args: CartFindManyArgs
-  ): Promise<Cart[]> {
+    @graphql.Args() args: CartItemFindManyArgs
+  ): Promise<CartItem[]> {
     const results = await this.service.findCarts(parent.id, args);
 
     if (!results) {
@@ -227,10 +227,10 @@ export class ProductResolverBase {
     action: "read",
     possession: "any",
   })
-  async attributeid(
+  async attributeId(
     @graphql.Parent() parent: Product
   ): Promise<Attribute | null> {
-    const result = await this.service.getAttributeid(parent.id);
+    const result = await this.service.getAttributeId(parent.id);
 
     if (!result) {
       return null;

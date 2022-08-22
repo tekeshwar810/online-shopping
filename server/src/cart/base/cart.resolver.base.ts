@@ -25,8 +25,8 @@ import { DeleteCartArgs } from "./DeleteCartArgs";
 import { CartFindManyArgs } from "./CartFindManyArgs";
 import { CartFindUniqueArgs } from "./CartFindUniqueArgs";
 import { Cart } from "./Cart";
-import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
-import { Product } from "../../product/base/Product";
+import { CartItemFindManyArgs } from "../../cartItem/base/CartItemFindManyArgs";
+import { CartItem } from "../../cartItem/base/CartItem";
 import { CartService } from "../cart.service";
 
 @graphql.Resolver(() => Cart)
@@ -139,17 +139,17 @@ export class CartResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Product])
+  @graphql.ResolveField(() => [CartItem])
   @nestAccessControl.UseRoles({
-    resource: "Product",
+    resource: "CartItem",
     action: "read",
     possession: "any",
   })
-  async productid(
+  async cartitems(
     @graphql.Parent() parent: Cart,
-    @graphql.Args() args: ProductFindManyArgs
-  ): Promise<Product[]> {
-    const results = await this.service.findProductid(parent.id, args);
+    @graphql.Args() args: CartItemFindManyArgs
+  ): Promise<CartItem[]> {
+    const results = await this.service.findCartitems(parent.id, args);
 
     if (!results) {
       return [];

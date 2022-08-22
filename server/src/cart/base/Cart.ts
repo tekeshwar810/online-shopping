@@ -12,17 +12,38 @@ https://docs.amplication.com/docs/how-to/custom-code
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
+  IsBoolean,
+  IsOptional,
+  ValidateNested,
   IsDate,
   IsString,
-  ValidateNested,
-  IsOptional,
-  IsNumber,
   IsInt,
+  IsNumber,
 } from "class-validator";
+import { CartItem } from "../../cartItem/base/CartItem";
 import { Type } from "class-transformer";
-import { Product } from "../../product/base/Product";
 @ObjectType()
 class Cart {
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  active!: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [CartItem],
+  })
+  @ValidateNested()
+  @Type(() => CartItem)
+  @IsOptional()
+  cartitems?: Array<CartItem>;
+
   @ApiProperty({
     required: true,
   })
@@ -41,12 +62,14 @@ class Cart {
 
   @ApiProperty({
     required: false,
-    type: () => [Product],
+    type: Number,
   })
-  @ValidateNested()
-  @Type(() => Product)
+  @IsInt()
   @IsOptional()
-  productid?: Array<Product>;
+  @Field(() => Number, {
+    nullable: true,
+  })
+  totalItem!: number | null;
 
   @ApiProperty({
     required: false,
@@ -57,18 +80,7 @@ class Cart {
   @Field(() => Number, {
     nullable: true,
   })
-  productprice!: number | null;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  quantity!: number | null;
+  totalprice!: number | null;
 
   @ApiProperty({
     required: true,

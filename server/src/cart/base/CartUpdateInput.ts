@@ -11,39 +11,40 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductUpdateManyWithoutCartsInput } from "./ProductUpdateManyWithoutCartsInput";
 import {
-  ValidateNested,
+  IsBoolean,
   IsOptional,
-  IsNumber,
+  ValidateNested,
   IsInt,
+  IsNumber,
   IsString,
 } from "class-validator";
+import { CartItemUpdateManyWithoutCartsInput } from "./CartItemUpdateManyWithoutCartsInput";
 import { Type } from "class-transformer";
 @InputType()
 class CartUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => ProductUpdateManyWithoutCartsInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => ProductUpdateManyWithoutCartsInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => ProductUpdateManyWithoutCartsInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  productid?: ProductUpdateManyWithoutCartsInput;
+  active?: boolean | null;
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: () => CartItemUpdateManyWithoutCartsInput,
   })
-  @IsNumber()
+  @ValidateNested()
+  @Type(() => CartItemUpdateManyWithoutCartsInput)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => CartItemUpdateManyWithoutCartsInput, {
     nullable: true,
   })
-  productprice?: number | null;
+  cartitems?: CartItemUpdateManyWithoutCartsInput;
 
   @ApiProperty({
     required: false,
@@ -54,7 +55,18 @@ class CartUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  quantity?: number | null;
+  totalItem?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  totalprice?: number | null;
 
   @ApiProperty({
     required: false,

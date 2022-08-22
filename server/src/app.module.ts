@@ -5,10 +5,11 @@ import { UserModule } from "./user/user.module";
 import { ProductModule } from "./product/product.module";
 import { BrandModule } from "./brand/brand.module";
 import { CategoryModule } from "./category/category.module";
-import { CartModule } from "./cart/cart.module";
+import { CartItemModule } from "./cartItem/cartItem.module";
 import { AttributeModule } from "./attribute/attribute.module";
 import { OrderModule } from "./order/order.module";
 import { OrderItemModule } from "./orderItem/orderItem.module";
+import { CartModule } from "./cart/cart.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -17,7 +18,6 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
-import path from 'path'
 
 @Module({
   controllers: [],
@@ -26,10 +26,11 @@ import path from 'path'
     ProductModule,
     BrandModule,
     CategoryModule,
-    CartModule,
+    CartItemModule,
     AttributeModule,
     OrderModule,
     OrderItemModule,
+    CartModule,
     ACLModule,
     AuthModule,
     HealthModule,
@@ -38,10 +39,6 @@ import path from 'path'
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '..', 'assets/images'),
-      serveRoot: '/assets/images' 
     }),
     GraphQLModule.forRootAsync({
       useFactory: (configService) => {
