@@ -7,6 +7,11 @@ import {
     IsString,
     IsNumber,
     IsInt,
+    IsNotEmpty,
+    IsNotIn,
+    IsNegative,
+    IsPositive,
+    isHash,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { BrandWhereUniqueInput } from "../brand/base/BrandWhereUniqueInput";
@@ -17,6 +22,7 @@ class CreateCartInput {
         required: true,
         type: String,
     })
+    @IsNotEmpty()
     @IsString()
     @Field(() => String)
     userId!: string;
@@ -25,7 +31,8 @@ class CreateCartInput {
         required: true,
         type: Number,
     })
-    //   @IsInt()
+    @IsNotEmpty()
+    @IsPositive()
     @Field(() => Number)
     quantity!: number;
 

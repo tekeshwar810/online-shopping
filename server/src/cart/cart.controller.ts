@@ -7,6 +7,7 @@ import { Cart } from "./base/Cart";
 import { CreateCartArgs } from "./base/CreateCartArgs";
 import { CreateCartInput } from "./CreateCartInput";
 import * as errors from "../errors";
+import { CartWhereUniqueInput } from "./base/CartWhereUniqueInput";
 
 @swagger.ApiTags("carts")
 @common.Controller("carts")
@@ -17,6 +18,20 @@ export class CartController extends CartControllerBase {
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {
     super(service, rolesBuilder);
+  }
+
+  @common.Get("/getCartItem/:id")
+  @nestAccessControl.UseRoles({
+    resource: "Product",
+    action: "read",
+    possession: "own",
+  })
+  @swagger.ApiOkResponse({ type: Cart })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async getCartItem(@common.Param() params: CartWhereUniqueInput):Promise<any>{
+    const cartList = await this.service.getCartItems(params)
+    return cartList
   }
 
   @common.Post("/addToCart")
@@ -31,6 +46,6 @@ export class CartController extends CartControllerBase {
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async addToCart(@common.Body() data: CreateCartInput):Promise<Object>{
     const cart =  await this.service.addtoCart(data)
-    return {msg:data}
+    return {response:data}
 }
 }

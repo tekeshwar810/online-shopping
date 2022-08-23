@@ -110,7 +110,7 @@ type CartItem {
   cartid: Cart
   createdAt: DateTime!
   id: String!
-  productid(orderBy: [ProductOrderByInput!], skip: Float, take: Float, where: ProductWhereInput): [Product!]!
+  productid: Product
   productprice: Float
   quantity: Float
   updatedAt: DateTime!
@@ -119,7 +119,7 @@ type CartItem {
 
 input CartItemCreateInput {
   cartid: CartWhereUniqueInput
-  productid: ProductCreateNestedManyWithoutCartItemsInput
+  productid: ProductWhereUniqueInput
   productprice: Float
   quantity: Float
   userid: String
@@ -143,6 +143,7 @@ input CartItemOrderByInput {
   cartidId: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  productidId: SortOrder
   productprice: SortOrder
   quantity: SortOrder
   updatedAt: SortOrder
@@ -151,7 +152,7 @@ input CartItemOrderByInput {
 
 input CartItemUpdateInput {
   cartid: CartWhereUniqueInput
-  productid: ProductUpdateManyWithoutCartItemsInput
+  productid: ProductWhereUniqueInput
   productprice: Float
   quantity: Float
   userid: String
@@ -172,7 +173,7 @@ input CartItemUpdateManyWithoutProductsInput {
 input CartItemWhereInput {
   cartid: CartWhereUniqueInput
   id: StringFilter
-  productid: ProductListRelationFilter
+  productid: ProductWhereUniqueInput
   productprice: FloatNullableFilter
   quantity: IntNullableFilter
   userid: StringNullableFilter
@@ -500,10 +501,6 @@ input ProductCreateNestedManyWithoutBrandsInput {
   connect: [ProductWhereUniqueInput!]
 }
 
-input ProductCreateNestedManyWithoutCartItemsInput {
-  connect: [ProductWhereUniqueInput!]
-}
-
 input ProductListRelationFilter {
   every: ProductWhereInput
   none: ProductWhereInput
@@ -542,12 +539,6 @@ input ProductUpdateManyWithoutAttributesInput {
 }
 
 input ProductUpdateManyWithoutBrandsInput {
-  connect: [ProductWhereUniqueInput!]
-  disconnect: [ProductWhereUniqueInput!]
-  set: [ProductWhereUniqueInput!]
-}
-
-input ProductUpdateManyWithoutCartItemsInput {
   connect: [ProductWhereUniqueInput!]
   disconnect: [ProductWhereUniqueInput!]
   set: [ProductWhereUniqueInput!]
