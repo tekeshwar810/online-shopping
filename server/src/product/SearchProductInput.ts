@@ -8,7 +8,7 @@ class SearchProductInput {
         required: false,
         type: String,
     })
-    
+    @IsString()
     @Field(() => String)
     searchText!: string
 

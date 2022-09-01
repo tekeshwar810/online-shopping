@@ -21,10 +21,12 @@ export class AuthService {
   ): Promise<UserInfo | null> {
     const user = await this.userService.findOne({
       where: { username },
+      select:{id:true,username:true,roles:true,password:true}
     });
     if (user && (await this.passwordService.compare(password, user.password))) {
-      const { roles } = user;
-      return { username, roles };
+      console.log(user)
+      const { roles,id } = user;
+      return {id:user.id,username:user.username,roles:user.roles};
     }
     return null;
   }

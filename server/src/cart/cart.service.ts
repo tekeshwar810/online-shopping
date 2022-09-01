@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "nestjs-prisma";
 import { CartServiceBase } from "./base/cart.service.base";
-
 @Injectable()
 export class CartService extends CartServiceBase {
   constructor(protected readonly prisma: PrismaService) {
     super(prisma);
   }
   async getProduct(data: any) {
-    const product: any = await this.prisma.product.findFirst({
+    
+  const product: any = await this.prisma.product.findFirst({
       where: { id: data.productId },
       select: { id: true, price: true }
     })
@@ -61,9 +61,10 @@ export class CartService extends CartServiceBase {
   }
 
   async addtoCart(data: any) {
+    
     const condition = [{ userid: data.userId }, { active: true }]
     const cart = await this.prisma.cart.findFirst({
-      where: { OR: condition },
+      where: { AND: condition },
       select: { id: true, totalItem: true, totalprice: true, userid: true }
     })
     if (!cart) {
@@ -115,12 +116,16 @@ export class CartService extends CartServiceBase {
         ]
       },
       select: {
+        id:true,
+        userid:true,
         cartitems: {
-          select: {
-             productprice: true,
+         select: {
              quantity: true,
+             cartidId:true,
+             userid:true,
             productid: {
               select: {
+                id:true,
                 productname: true,
                 price: true,
                 image: true,
@@ -133,23 +138,31 @@ export class CartService extends CartServiceBase {
             }
           }
         },
-        id:true,
+       
       }
     })
-    if(cartlist != null){
-      const getCartItem = await this.prisma.cartItem.aggregate({
-        _sum: {
-          productprice: true,
-        },
-        _count: {
-          userid: true,
-        },
-        where: { userid: params.id },
-       
-      })
-      cartlist.totalItem = getCartItem._count.userid 
-      cartlist.totalprice = getCartItem._sum.productprice 
+    
+    if(cartlist){
+    let cat_item:any = cartlist
+    let total = []
+    for(let x of cat_item.cartitems){
+      total.push(x.quantity * x.productid.price) 
     }
-    return { status:true,data:cartlist };
+    cartlist.totalItem = total.length
+    cartlist.totalprice = eval(total.join("+"))
+    
+    await this.prisma.cart.update({
+      where: {
+        id: cartlist.id,
+      },
+      data: {
+        totalItem: cartlist.totalItem,
+        totalprice: cartlist.totalprice,
+      },
+    })
+      return { status:true,data:cartlist };
+    }else{
+      return { status:true,data:{} };    
+    }
   }
 }

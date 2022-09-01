@@ -46,6 +46,6 @@ export class CartController extends CartControllerBase {
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async addToCart(@common.Body() data: CreateCartInput):Promise<Object>{
     const cart =  await this.service.addtoCart(data)
-    return {response:data}
+    return {response:cart}
 }
 }

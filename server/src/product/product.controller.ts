@@ -19,6 +19,7 @@ import { EditProductInput } from "./EditProductInput";
 import { FilterProductInput } from "./FilterProductInput"
 import { ProductWhereUniqueInput } from "./base/ProductWhereUniqueInput";
 import { SearchProductInput } from "./SearchProductInput";
+import { Public } from "src/decorators/public.decorator";
 
 
 @swagger.ApiTags("products")
@@ -33,12 +34,13 @@ export class ProductController extends ProductControllerBase {
   }
 
   // @common.UseInterceptors(AclValidateRequestInterceptor)
+  @Public()
   @common.Get("/getAllProducts")
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "read",
-    possession: "own",
-  })
+  // @nestAccessControl.UseRoles({
+  //   resource: "Product",
+  //   action: "read",
+  //   possession: "own",
+  // })
   @swagger.ApiOkResponse({ type: Product })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
@@ -99,12 +101,13 @@ export class ProductController extends ProductControllerBase {
     return response
   }
 
+  @Public()
   @common.Post("/filterProduct")
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "read",
-    possession: "own",
-  })
+  // @nestAccessControl.UseRoles({
+  //   resource: "Product",
+  //   action: "read",
+  //   possession: "own",
+  // })
   @swagger.ApiOkResponse({ type: Product })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
@@ -113,12 +116,13 @@ export class ProductController extends ProductControllerBase {
     return productList;
   }
 
+  @Public()
   @common.Post("/searchProduct")
-  @nestAccessControl.UseRoles({
-    resource: "Product",
-    action: "create",
-    possession: "own",
-  })
+  // @nestAccessControl.UseRoles({
+  //   resource: "Product",
+  //   action: "create",
+  //   possession: "own",
+  // })
   @swagger.ApiOkResponse({ type: Product })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })

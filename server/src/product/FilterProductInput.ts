@@ -10,7 +10,6 @@ class FilterProductInput {
         type: String,
     })
     
-    
     @Field(() => String)
     categoryid!: string
 
@@ -34,7 +33,7 @@ class FilterProductInput {
         required: true,
         type: String,
     })
-   
+    
     @Field(() => String)
     brandidId!: string
  

@@ -10,6 +10,7 @@ import * as errors from "../errors";
 import { RoleGuard } from "../role.guard";
 import { UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { Public } from "src/decorators/public.decorator";
 
 
 @swagger.ApiTags("categories")
@@ -23,14 +24,16 @@ export class CategoryController extends CategoryControllerBase {
     super(service, rolesBuilder);
   }
 
-  @common.UseInterceptors(AclValidateRequestInterceptor)
+
+  // @common.UseInterceptors(AclValidateRequestInterceptor)
+  @Public()
   @common.Get("/getAllCategory")
-  @UseGuards(AuthGuard('jwt'),new RoleGuard('admin'))
-  @nestAccessControl.UseRoles({
-    resource: "Category",
-    action: "read",
-    possession: "own",
-  })
+  // @UseGuards(AuthGuard('jwt'))
+  // @nestAccessControl.UseRoles({
+  //   resource: "Category",
+  //   action: "read",
+  //   possession: "own",
+  // })
   @swagger.ApiOkResponse({ type: Category })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
