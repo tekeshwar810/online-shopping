@@ -53,6 +53,7 @@ export class AttributeControllerBase {
       select: {
         attributeType: true,
         createdAt: true,
+        dummy: true,
         id: true,
         name: true,
         updatedAt: true,
@@ -78,6 +79,7 @@ export class AttributeControllerBase {
       select: {
         attributeType: true,
         createdAt: true,
+        dummy: true,
         id: true,
         name: true,
         updatedAt: true,
@@ -104,6 +106,7 @@ export class AttributeControllerBase {
       select: {
         attributeType: true,
         createdAt: true,
+        dummy: true,
         id: true,
         name: true,
         updatedAt: true,
@@ -139,6 +142,7 @@ export class AttributeControllerBase {
         select: {
           attributeType: true,
           createdAt: true,
+          dummy: true,
           id: true,
           name: true,
           updatedAt: true,
@@ -173,6 +177,7 @@ export class AttributeControllerBase {
         select: {
           attributeType: true,
           createdAt: true,
+          dummy: true,
           id: true,
           name: true,
           updatedAt: true,

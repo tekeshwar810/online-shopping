@@ -5,8 +5,6 @@ datasource postgres {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["filterJson"]
-
 }
 
 model User {
@@ -72,6 +70,7 @@ model CartItem {
 model Attribute {
   attributeType String?
   createdAt     DateTime  @default(now())
+  dummy         Float?
   id            String    @id @default(cuid())
   name          String?
   products      Product[]

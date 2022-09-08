@@ -5,6 +5,7 @@ import {
   SimpleForm,
   CreateProps,
   TextInput,
+  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
@@ -16,6 +17,7 @@ export const AttributeCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="attribute_type" source="attributeType" />
+        <NumberInput label="dummy" source="dummy" />
         <TextInput label="name" source="name" />
         <ReferenceArrayInput
           source="products"

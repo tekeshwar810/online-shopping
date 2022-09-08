@@ -5,6 +5,7 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
@@ -16,6 +17,7 @@ export const AttributeEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <TextInput label="attribute_type" source="attributeType" />
+        <NumberInput label="dummy" source="dummy" />
         <TextInput label="name" source="name" />
         <ReferenceArrayInput
           source="products"
