@@ -296,18 +296,6 @@
   {
     "role": "admin",
     "resource": "Attribute",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "shopper",
-    "resource": "Attribute",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "Attribute",
     "action": "create:any",
     "attributes": "*"
   },

@@ -14,6 +14,7 @@ export const AttributeList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <TextField label="attribute_type" source="attributeType" />
         <DateField source="createdAt" label="Created At" />
+        <TextField label="dummy" source="dummy" />
         <TextField label="ID" source="id" />
         <TextField label="name" source="name" />
         <DateField source="updatedAt" label="Updated At" />

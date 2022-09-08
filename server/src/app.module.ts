@@ -18,7 +18,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
-import path from 'path'
+
 @Module({
   controllers: [],
   imports: [
@@ -28,28 +28,17 @@ import path from 'path'
     CategoryModule,
     CartItemModule,
     AttributeModule,
+    OrderModule,
+    OrderItemModule,
+    CartModule,
+    ACLModule,
+    AuthModule,
     HealthModule,
-    AuthModule,
-    ACLModule,
-    OrderModule,
-    OrderItemModule,
-    CartModule,
-   /* CartModule,
-    OrderModule,
-    OrderItemModule,
-    CartModule,
-    ACLModule,
-    AuthModule,
-    HealthModule,*/
     SecretsManagerModule,
     MorganModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '..', 'assets/images'),
-      serveRoot: '/assets/images/' 
     }),
     GraphQLModule.forRootAsync({
       useFactory: (configService) => {

@@ -13,6 +13,7 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   attributeType: "exampleAttributeType",
   createdAt: new Date(),
+  dummy: 42.42,
   id: "exampleId",
   name: "exampleName",
   updatedAt: new Date(),
@@ -21,6 +22,7 @@ const CREATE_INPUT = {
 const CREATE_RESULT = {
   attributeType: "exampleAttributeType",
   createdAt: new Date(),
+  dummy: 42.42,
   id: "exampleId",
   name: "exampleName",
   updatedAt: new Date(),
@@ -30,6 +32,7 @@ const FIND_MANY_RESULT = [
   {
     attributeType: "exampleAttributeType",
     createdAt: new Date(),
+    dummy: 42.42,
     id: "exampleId",
     name: "exampleName",
     updatedAt: new Date(),
@@ -39,6 +42,7 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   attributeType: "exampleAttributeType",
   createdAt: new Date(),
+  dummy: 42.42,
   id: "exampleId",
   name: "exampleName",
   updatedAt: new Date(),

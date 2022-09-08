@@ -30,7 +30,6 @@ import { Brand } from "./Brand";
 import { ProductFindManyArgs } from "../../product/base/ProductFindManyArgs";
 import { Product } from "../../product/base/Product";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
-import { Public } from "src/decorators/public.decorator";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class BrandControllerBase {
@@ -60,13 +59,12 @@ export class BrandControllerBase {
     });
   }
 
-  // @common.UseInterceptors(AclFilterResponseInterceptor)
-  // @nestAccessControl.UseRoles({
-  //   resource: "Brand",
-  //   action: "read",
-  //   possession: "any",
-  // })
-  @Public()
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Brand",
+    action: "read",
+    possession: "any",
+  })
   @common.Get()
   @swagger.ApiOkResponse({ type: [Brand] })
   @swagger.ApiForbiddenResponse()
